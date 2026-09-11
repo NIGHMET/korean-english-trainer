@@ -306,6 +306,8 @@ details.tmpl summary{cursor:pointer;font-weight:700}
 
 <script>
 "use strict";
+/* $ 必须最先定义：后面登录/注册绑定会立刻用到，避免 TDZ 报错 */
+const $=id=>document.getElementById(id);
 /* ============ 数据 ============ */
 const VOWELS=[["아","a","啊"],["어","eo","哦"],["오","o","哦(圆唇)"],["우","u","呜"],["으","eu","嗯"],["이","i","咿"],["애","ae","哎"],["에","e","诶"],["외","oe","喂"],["위","wi","位"]];
 const CONSONANTS=[["ㄱ","g/k","哥"],["ㄴ","n","呢"],["ㄷ","d/t","的"],["ㄹ","r/l","乐"],["ㅁ","m","么"],["ㅂ","b/p","波"],["ㅅ","s","丝"],["ㅇ","ng","嗯(圈)"],["ㅈ","j","基"],["ㅊ","ch","吃"],["ㅋ","k","渴"],["ㅌ","t","特"],["ㅍ","p","泼"],["ㅎ","h","喝"]];
@@ -416,7 +418,6 @@ setInterval(()=>{const m=me();const add=Math.floor((Date.now()-sessionStart)/100
 window.addEventListener("beforeunload",()=>{const m=me();const add=Math.floor((Date.now()-sessionStart)/1000);if(add>0){const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};m.hist[t].sec+=add;m.seconds+=add;save();}});
 
 /* ============ 通用 ============ */
-const $=id=>document.getElementById(id);
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2200);}
 function speak(text,lang){try{if(!("speechSynthesis" in window)){toast("当前浏览器不支持发音，用拼音跟读即可");return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.85;const vs=speechSynthesis.getVoices();const v=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang.slice(0,2)));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){toast("发音调用失败");}}
 function addPts(track,n,qGood,qAll){const m=me();const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};
