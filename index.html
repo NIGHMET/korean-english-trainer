@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>首尔备考室 · 韩语日常 × 英语六级</title>
+<style>
+:root{
+  --paper:#faf6ef; --ink:#1c1a17; --muted:#8a8177;
+  --rose:#e0447c; --rose-deep:#b81e56; --rose-soft:#fbe4ee;
+  --navy:#1d3fae; --navy-deep:#122a7a; --navy-soft:#e3e9fd;
+  --gold:#c98a12; --gold-soft:#fdf0d0;
+  --card:#fffdf8; --line:#e8dfd2; --ok:#1d9e6b; --bad:#d33f3f;
+  --shadow:0 10px 30px rgba(28,26,23,.10);
+  --r:18px;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Serif SC","Songti SC",Georgia,"STSong",serif;min-height:100vh}
+/* grain */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.06) 1px, transparent 1px);background-size:14px 14px}
+#app{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 16px 110px}
+/* header */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(250,246,239,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--ink);margin:0 -16px;padding:10px 16px}
+.topbar-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;border-radius:14px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:900;line-height:1;font-size:15px;transform:rotate(-4deg);flex:none}
+.logo small{font-size:10px;font-weight:400}
+.brand h1{font-size:19px;margin:0;letter-spacing:.5px}
+.brand p{margin:2px 0 0;font-size:12px;color:var(--muted);font-family:Georgia,serif}
+.hstats{margin-left:auto;display:flex;gap:8px}
+.hstat{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:4px 10px;text-align:center;min-width:74px;box-shadow:3px 3px 0 var(--ink)}
+.hstat b{display:block;font-size:17px}
+.hstat span{font-size:11px;color:var(--muted)}
+/* layout */
+.layout{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-top:16px}
+nav.side{position:sticky;top:86px;align-self:start;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:10px;display:flex;flex-direction:column;gap:8px}
+nav.side button{border:2px solid transparent;background:transparent;border-radius:12px;padding:11px 10px;font-size:15px;cursor:pointer;text-align:left;font-family:inherit}
+nav.side button.active{background:var(--ink);color:var(--paper)}
+nav.side .hint{font-size:12px;color:var(--muted);padding:6px 8px;line-height:1.6}
+main{min-width:0}
+.page{display:none;animation:rise .35s ease}
+.page.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 4px;font-size:19px}
+.card .sub{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.6}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{flex:1;min-width:140px;border:2px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff}
+.kpi b{font-size:22px}
+.kpi span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-size:15px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);font-family:inherit;transition:transform .08s}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.rose{background:var(--rose);color:#fff;border-color:var(--rose-deep);box-shadow:3px 3px 0 var(--rose-deep)}
+.btn.navy{background:var(--navy);color:#fff;border-color:var(--navy-deep);box-shadow:3px 3px 0 var(--navy-deep)}
+.btn.ghost{box-shadow:none}
+.btn.small{padding:6px 10px;font-size:13px}
+.tag{display:inline-block;font-size:12px;border:1.5px solid var(--ink);border-radius:99px;padding:2px 10px;margin:2px 4px 2px 0;background:#fff}
+.tag.rose{background:var(--rose-soft);border-color:var(--rose-deep)}
+.tag.navy{background:var(--navy-soft);border-color:var(--navy-deep)}
+.tag.gold{background:var(--gold-soft);border-color:var(--gold)}
+.track{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.track-card{border-radius:16px;padding:16px;color:#fff;cursor:pointer;border:2px solid var(--ink);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.track-card.kr{background:linear-gradient(135deg,#f4528f,#a8124e 70%,#5e0a2e)}
+.track-card.en{background:linear-gradient(135deg,#3556d6,#16295f 75%,#0a1430)}
+.track-card h3{margin:0;font-size:20px}
+.track-card p{margin:6px 0 10px;font-size:13px;opacity:.92;line-height:1.6}
+.track-card .go{background:#fff;color:var(--ink);border-radius:99px;display:inline-block;padding:6px 14px;font-size:13px;font-weight:700}
+.phon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.phon{border:2px solid var(--ink);border-radius:12px;background:#fff;text-align:center;padding:8px 4px;cursor:pointer}
+.phon b{font-size:22px;display:block}
+.phon span{font-size:12px;color:var(--muted)}
+.phon:active{background:var(--rose-soft)}
+.phrase{border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:#fff}
+.phrase .kr{font-size:17px;font-weight:700}
+.phrase .py{font-size:13px;color:var(--rose-deep)}
+.phrase .zh{font-size:13px;color:#444;margin-top:2px}
+.phrase .ops{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.quiz-q{font-size:18px;font-weight:700;margin:6px 0 10px;line-height:1.6}
+.quiz-opts{display:grid;gap:8px}
+.quiz-opts button{text-align:left;border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 12px;font-size:15px;cursor:pointer;font-family:inherit}
+.quiz-opts button.correct{background:#d9f5e6;border-color:var(--ok)}
+.quiz-opts button.wrong{background:#fde0e0;border-color:var(--bad)}
+.quiz-opts button:disabled{opacity:.95;cursor:default}
+input[type=text]{border:2px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:16px;width:100%;font-family:inherit;background:#fff}
+.wordcard{perspective:800px;cursor:pointer}
+.word-inner{border:2px solid var(--ink);border-radius:14px;background:#fff;padding:22px;text-align:center;transition:transform .4s;transform-style:preserve-3d;min-height:130px;display:grid;place-items:center}
+.wordcard.flip .word-inner{transform:rotateY(180deg)}
+.w-front,.w-back{grid-area:1/1;backface-visibility:hidden}
+.w-back{transform:rotateY(180deg)}
+select{border:2px solid var(--ink);border-radius:10px;padding:8px;font-family:inherit;background:#fff}
+table.rank{width:100%;border-collapse:collapse;font-size:14px}
+table.rank th,table.rank td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left}
+table.rank tr.me td{background:var(--gold-soft);font-weight:700}
+.medal{font-size:17px}
+.bar-wrap{display:flex;align-items:flex-end;gap:8px;height:150px;padding:10px 4px 0}
+.bar{flex:1;text-align:center}
+.bar i{display:block;border-radius:8px 8px 4px 4px;margin:0 auto;min-height:6px}
+.bar span{font-size:11px;color:var(--muted)}
+.hist{font-size:13px;max-height:220px;overflow:auto}
+.hist div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:7px 2px}
+.progress{height:12px;border:2px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));width:0}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none;max-width:92vw;text-align:center}
+.toast.show{opacity:1}
+/* 登录门 */
+#gate{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px;
+  background:radial-gradient(600px 300px at 20% 10%,var(--rose-soft),transparent),radial-gradient(600px 300px at 90% 90%,var(--navy-soft),transparent),var(--paper)}
+body.in #gate{display:none}
+.gate-card{width:100%;max-width:380px;background:var(--card);border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:26px 22px;text-align:center;animation:rise .4s ease}
+.gate-card .logo{margin:0 auto 10px}
+.gate-card h2{margin:6px 0 2px;font-size:24px}
+.gate-card .sub{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 12px}
+.gate-card input{margin:5px 0}
+#gate-go{width:100%;margin-top:10px}
+#gate-msg{min-height:20px;font-size:13px;color:var(--bad);margin-top:8px}
+.tabbar{display:none}
+details.tmpl{border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;margin:8px 0}
+details.tmpl summary{cursor:pointer;font-weight:700}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:99;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:10px;height:14px;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  nav.side{display:none}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:6px}
+  .tabbar button{flex:1;border:none;border-radius:12px;background:transparent;color:#cfc8bd;font-size:12px;padding:9px 2px;cursor:pointer;font-family:inherit}
+  .tabbar button.active{background:var(--paper);color:var(--ink);font-weight:700}
+  #app{padding-bottom:120px}
+  .track{grid-template-columns:1fr}
+  .hstat{min-width:64px;padding:3px 8px}
+  .brand h1{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar"><div class="topbar-inner">
+    <div class="logo">서울<br><small>SEOUL</small></div>
+    <div class="brand"><h1>首尔备考室 · 서울备考室</h1><p>韩语日常沟通 × 英语六级 · 学习记录 · 积分 · 排行</p></div>
+    <div class="hstats">
+      <div class="hstat"><b id="h-points">0</b><span>总积分 ⭐</span></div>
+      <div class="hstat"><b id="h-streak">0</b><span>连续打卡 🔥</span></div>
+      <button class="btn small ghost" id="btn-logout" title="退出登录">⏻</button>
+    </div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="side" id="sidenav">
+      <button data-page="home" class="active">🏠 首页仪表盘</button>
+      <button data-page="kr">💬 韩语 · 日常沟通</button>
+      <button data-page="en">📘 英语 · CET-6</button>
+      <button data-page="log">🗂️ 学习记录</button>
+      <button data-page="rank">🏆 积分排行</button>
+      <div class="hint">💡 零基础先学「发音40音」→「日常沟通」→每天 1 组测验。训练句里埋了美容行业关键词，日常过关后再切美容/医美场景。<br>六级先刷「核心词卡」→每天 1 篇阅读 + 1 次拼写挑战。<br>所有记录保存在本机浏览器，换设备前记得去「学习记录」导出备份。</div>
+    </nav>
+    <main>
+      <!-- HOME -->
+      <section class="page active" id="pg-home">
+        <div class="card">
+          <h2 id="hello">你好，今天也一起加油 👋</h2>
+          <p class="sub" id="daily-line">每日一句加载中…</p>
+          <div class="row">
+            <div class="kpi"><b id="k-today-min">0</b><span>今日学习（分钟）</span></div>
+            <div class="kpi"><b id="k-today-pts">0</b><span>今日积分</span></div>
+            <div class="kpi"><b id="k-level">Lv.1</b><span id="k-level-sub">再得 100 分升级</span></div>
+          </div>
+          <div style="margin:12px 0 6px;font-size:13px">今日目标 <span id="goal-txt">0%</span></div>
+          <div class="progress"><i id="goal-bar"></i></div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn rose" id="btn-checkin">📅 今日打卡 +20</button>
+            <button class="btn ghost small" id="btn-profile">👤 切换档案：<span id="profile-name">我</span></button>
+          </div>
+        </div>
+        <div class="track">
+          <div class="track-card kr" data-goto="kr"><h3>💬 韩语 · 日常沟通</h3><p>发音40音 → 问路/打车/吃饭/闲聊 → 先能开口说话。训练句里带美容行业关键词，日常过关自然过渡到上岗话术。</p><span class="go">进入韩语 →</span></div>
+          <div class="track-card en" data-goto="en"><h3>📘 英语 · CET-6</h3><p>核心高频词卡 → 拼写挑战 → 阅读实战 → 翻译写作模板。连对有加成，冲榜最快。</p><span class="go">进入英语 →</span></div>
+        </div>
+        <div class="card">
+          <h2>📊 最近 7 天</h2>
+          <p class="sub">每天学一点，曲线会替你作证。云端多人榜接好之前，先和虚拟陪练团比一比。</p>
+          <div class="bar-wrap" id="mini-bars"></div>
+          <div class="row"><button class="btn small" data-goto="log">查看完整记录 →</button><button class="btn small" data-goto="rank">去排行榜 →</button></div>
+        </div>
+      </section>
+
+      <!-- KR -->
+      <section class="page" id="pg-kr">
+        <div class="card">
+          <h2>💬 韩语 · 日常沟通为主</h2>
+          <p class="sub">路线：① 发音40音 ② 日常沟通（问路/打车/吃饭/闲聊/预约）③ 接待礼貌语。训练句里含美容行业关键词，日常过关后再攻美容/医美场景。每完成一次测验自动记分。</p>
+          <div><span class="tag rose">零基础友好</span><span class="tag">日常沟通</span><span class="tag">美容关键词</span><span class="tag">发音 TTS</span><span class="tag gold" id="kr-pts-tag">韩语积分 0</span></div>
+        </div>
+        <div class="card">
+          <h2>① 发音 40 音 · 발음</h2>
+          <p class="sub">点击格子听韩语发音（调用本机语音，无需联网）。先跟读 3 遍，再往下学。</p>
+          <h3 style="font-size:14px;margin:8px 0">元音 모음</h3><div class="phon-grid" id="vowels"></div>
+          <h3 style="font-size:14px;margin:12px 0 8px">辅音 자음</h3><div class="phon-grid" id="consonants"></div>
+          <div class="row" style="margin-top:10px"><button class="btn small" id="btn-phon-done">✅ 发音学完 +15</button></div>
+        </div>
+        <div class="card">
+          <h2>②③④ 场景话术 · 일상 + 미용</h2>
+          <p class="sub">筛选场景 → 点击 🔊 跟读 → 用测验检验。美容/医美高频已标 ⭐。测验从全部 49 句里随机出 10 题。</p>
+          <div class="row" style="margin-bottom:8px">
+            <select id="kr-filter">
+              <option value="all">全部场景（49句）</option><option value="greet">接待礼貌语</option><option value="daily">日常沟通</option>
+              <option value="beauty">美容行业 ⭐</option><option value="consult">医美咨询 ⭐</option><option value="care">术前术后</option><option value="price">价格预约投诉</option>
+            </select>
+            <button class="btn small navy" id="btn-kr-quiz">开始韩语测验（10题）</button>
+          </div>
+          <div id="kr-list"></div>
+          <div id="kr-quiz"></div>
+        </div>
+      </section>
+
+      <!-- EN -->
+      <section class="page" id="pg-en">
+        <div class="card">
+          <h2>📘 英语 · 六级上岸计划</h2>
+          <p class="sub">路线：① 核心词卡（点卡片翻面）② 拼写挑战 ③ 阅读实战 ④ 写作翻译模板。连对 3 题起有加成。</p>
+          <div><span class="tag navy">CET-6</span><span class="tag">高频词</span><span class="tag">阅读+写作</span><span class="tag gold" id="en-pts-tag">英语积分 0</span></div>
+        </div>
+        <div class="card">
+          <h2>① 核心词卡（内置 60 词演示版）</h2>
+          <p class="sub">点击卡片翻面看中文。掌握了就点「记住了」，会扣减下次出现频率并加分。</p>
+          <div class="wordcard" id="wordcard"><div class="word-inner"><div class="w-front"><div style="font-size:30px;font-weight:900" id="w-en">abundant</div><div style="color:var(--muted);font-size:13px" id="w-ph">/əˈbʌndənt/</div><div style="font-size:12px;color:var(--muted)">点击翻面</div></div><div class="w-back"><div style="font-size:22px;font-weight:800" id="w-zh">丰富的</div><div style="font-size:13px;color:var(--muted)" id="w-ex">abundant rainfall 充沛的降雨</div></div></div></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn small" id="btn-word-next">下一个 →</button>
+            <button class="btn small navy" id="btn-word-known">✅ 记住了 +5</button>
+            <button class="btn small rose" id="btn-spell">拼写挑战（10题）</button>
+          </div>
+          <div id="en-quiz"></div>
+        </div>
+        <div class="card">
+          <h2>② 阅读实战</h2>
+          <p class="sub">六级长度的缩编练习，先限时 3 分钟读，再做题。</p>
+          <div id="reading"></div>
+        </div>
+        <div class="card">
+          <h2>③ 写作 · 翻译模板</h2>
+          <div id="templates"></div>
+        </div>
+      </section>
+
+      <!-- LOG -->
+      <section class="page" id="pg-log">
+        <div class="card">
+          <h2>🗂️ 学习记录</h2>
+          <p class="sub">按天记录：学习分钟数 / 答题 / 正确率 / 积分。数据只存本机 localStorage。</p>
+          <div class="row">
+            <div class="kpi"><b id="s-total-min">0</b><span>累计分钟</span></div>
+            <div class="kpi"><b id="s-total-q">0</b><span>累计答题</span></div>
+            <div class="kpi"><b id="s-acc">0%</b><span>总正确率</span></div>
+          </div>
+          <div class="bar-wrap" id="big-bars"></div>
+        </div>
+        <div class="card"><h2>历史明细</h2><div class="hist" id="hist"></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn small" id="btn-export">⬇️ 导出备份(JSON)</button>
+            <button class="btn small ghost" id="btn-reset">🗑 清空本机数据</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RANK -->
+      <section class="page" id="pg-rank">
+        <div class="card">
+          <h2>🏆 积分排行</h2>
+          <p class="sub">① <b>本机榜</b>：同一浏览器可建多个档案（你+朋友/家人当面PK）。② <b>陪练团</b>：虚拟对手每天涨分，逼你自律。③ <b>云端真人榜</b>：已预留接口，接上后端即变真实多人排行。</p>
+          <div class="row"><button class="btn small" id="btn-add-profile">＋ 新建档案</button><span class="tag gold">我的总分：<b id="rank-me">0</b></span></div>
+        </div>
+        <div class="card"><h2>本机榜（同设备PK）</h2><table class="rank" id="local-rank"></table></div>
+        <div class="card"><h2>虚拟陪练团（含我）</h2><p class="sub">对手每天按固定算法涨分，你三天不学就会被超。云榜上线后这里会替换成真人。</p><table class="rank" id="bot-rank"></table></div>
+        <div class="card"><h2>☁️ 云端真人榜（待接入）</h2>
+          <p class="sub" id="cloud-status">当前为单机演示模式。要变真实多人排行，任选其一接入即可：Supabase / Firebase / Cloudflare D1。前端已留好 <code>window.RANK_API_URL</code> 接口（详见页面底部注释）。配好后这里自动显示真人排名。</p>
+          <div class="row"><input type="text" id="cloud-url" placeholder="粘贴 RANK_API_URL 后点连接测试，例如 https://xxx/api/rank" style="flex:1;min-width:200px"><button class="btn small navy" id="btn-cloud">连接测试</button></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="tabbar" id="tabbar">
+    <button data-page="home" class="active">🏠<br>首页</button>
+    <button data-page="kr">💄<br>韩语</button>
+    <button data-page="en">📘<br>英语</button>
+    <button data-page="log">🗂️<br>记录</button>
+    <button data-page="rank">🏆<br>排行</button>
+  </nav>
+</div>
+<div id="gate"><div class="gate-card">
+  <div class="logo">서울<br><small>SEOUL</small></div>
+  <h2>首尔备考室</h2>
+  <p class="sub">韩语日常沟通 × 英语六级<br>登录后学习记录、积分按账号隔离。<br>（本机演示版：换浏览器/设备需在“记录页”导出备份）</p>
+  <div class="row" style="justify-content:center;margin-bottom:8px">
+    <button class="btn small primary" id="tab-login">登录</button>
+    <button class="btn small ghost" id="tab-reg">注册</button>
+  </div>
+  <input type="text" id="gate-user" placeholder="昵称（1~12字）" maxlength="12" autocomplete="username">
+  <input type="password" id="gate-pw" placeholder="密码（至少4位）" autocomplete="current-password">
+  <button class="btn rose" id="gate-go">登录 →</button>
+  <div id="gate-msg"></div>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+
+<script>
+"use strict";
+/* ============ 数据 ============ */
+const VOWELS=[["아","a","啊"],["어","eo","哦"],["오","o","哦(圆唇)"],["우","u","呜"],["으","eu","嗯"],["이","i","咿"],["애","ae","哎"],["에","e","诶"],["외","oe","喂"],["위","wi","位"]];
+const CONSONANTS=[["ㄱ","g/k","哥"],["ㄴ","n","呢"],["ㄷ","d/t","的"],["ㄹ","r/l","乐"],["ㅁ","m","么"],["ㅂ","b/p","波"],["ㅅ","s","丝"],["ㅇ","ng","嗯(圈)"],["ㅈ","j","基"],["ㅊ","ch","吃"],["ㅋ","k","渴"],["ㅌ","t","特"],["ㅍ","p","泼"],["ㅎ","h","喝"]];
+const PHRASES=[
+{cat:"greet",kr:"안녕하세요!",py:"an-nyeong-ha-se-yo",zh:"您好！（医美店进门必说）"},
+{cat:"greet",kr:"어서 오세요.",py:"eo-seo o-se-yo",zh:"欢迎光临。"},
+{cat:"greet",kr:"처음 방문이세요?",py:"cheo-eum bang-mun-i-se-yo",zh:"是第一次来吗？"},
+{cat:"greet",kr:"감사합니다.",py:"gam-sa-ham-ni-da",zh:"谢谢。"},
+{cat:"greet",kr:"죄송합니다.",py:"joe-song-ham-ni-da",zh:"对不起 / 让您久等了。"},
+{cat:"greet",kr:"잠시만 기다려 주세요.",py:"jam-si-man gi-da-ryeo ju-se-yo",zh:"请稍等一下。"},
+{cat:"consult",kr:"어떤 고민이 있으세요?",py:"eo-tteon go-min-i it-eu-se-yo",zh:"您有什么皮肤烦恼？⭐"},
+{cat:"consult",kr:"물광주사를 받고 싶어요.",py:"mul-gwang-ju-sa-reul bat-go sip-eo-yo",zh:"我想做水光针。⭐"},
+{cat:"consult",kr:"써마지 / 울쎄라가 궁금해요.",py:"sseo-ma-ji / ul-sse-ra-ga gung-geum-hae-yo",zh:"我想了解热玛吉/超声刀。⭐"},
+{cat:"consult",kr:"레이저는 아프나요?",py:"re-i-jeo-neun a-peu-na-yo",zh:"激光疼吗？⭐"},
+{cat:"consult",kr:"효과는 언제부터 나와요?",py:"hyo-gwa-neun eon-je-bu-teo na-wa-yo",zh:"效果什么时候显现？⭐"},
+{cat:"consult",kr:"부작용은 없나요?",py:"bu-ja-gyong-eun eom-na-yo",zh:"有副作用吗？"},
+{cat:"consult",kr:"마취 크림을 발라 드릴게요.",py:"ma-chwi keu-rim-eul bal-la deu-ril-ge-yo",zh:"我给您敷麻药。⭐"},
+{cat:"consult",kr:"피부가 예민하신 편이에요.",py:"pi-bu-ga ye-min-ha-sin pyeon-i-e-yo",zh:"您的皮肤比较敏感。"},
+{cat:"care",kr:"시술 후 자외선 차단이 중요해요.",py:"si-sul hu ja-oe-seon cha-dan-i jung-yo-hae-yo",zh:"术后防晒很重要。⭐"},
+{cat:"care",kr:"오늘은 사우나를 피해 주세요.",py:"o-neul-eun sa-u-na-reul pi-hae ju-se-yo",zh:"今天请避免桑拿。⭐"},
+{cat:"care",kr:"음주와 흡연을 삼가 주세요.",py:"eum-ju-wa heub-yeon-eul sam-ga ju-se-yo",zh:"请忌酒忌烟。"},
+{cat:"care",kr:"붓기는 2~3일 정도 지속돼요.",py:"but-gi-neun i~sam-il jeong-do ji-sok-dwae-yo",zh:"肿胀会持续2~3天。"},
+{cat:"price",kr:"가격이 어떻게 되나요?",py:"ga-gyeo-gi eo-tteo-ke doe-na-yo",zh:"价格是多少？⭐"},
+{cat:"price",kr:"오늘 예약 가능하세요?",py:"o-neul ye-yak ga-neung-ha-se-yo",zh:"今天可以预约吗？⭐"},
+{cat:"price",kr:"다음 주 토요일로 예약할게요.",py:"da-eum ju to-yo-il-lo ye-yak-hal-ge-yo",zh:"我约下周六。"},
+{cat:"price",kr:"불편한 점이 있으시면 말씀해 주세요.",py:"bul-pyeon-han jeom-i it-eu-si-myeon mal-sseum-hae ju-se-yo",zh:"有任何不适请告诉我。（投诉安抚）⭐"},
+{cat:"price",kr:"환불 규정을 안내해 드릴게요.",py:"hwan-bul gyu-jeong-eul an-nae-hae deu-ril-ge-yo",zh:"我给您介绍退款规定。"},
+{cat:"daily",kr:"저는 중국에서 왔어요.",py:"jeo-neun jung-guk-e-seo wat-eo-yo",zh:"我是从中国来的。（自我介绍）"},
+{cat:"daily",kr:"한국어 공부 중이에요.",py:"han-gu-geo gong-bu jung-i-e-yo",zh:"我正在学韩语。"},
+{cat:"daily",kr:"화장실이 어디예요?",py:"hwa-jang-sil-i eo-di-ye-yo",zh:"洗手间在哪里？"},
+{cat:"daily",kr:"지하철역이 어디예요?",py:"ji-ha-cheol-yeok-i eo-di-ye-yo",zh:"地铁站在哪里？"},
+{cat:"daily",kr:"택시를 불러 주세요.",py:"taek-si-reul bul-leo ju-se-yo",zh:"请帮我叫出租车。"},
+{cat:"daily",kr:"얼마예요? 할인 돼요?",py:"eol-ma-ye-yo? hal-in dwae-yo?",zh:"多少钱？能打折吗？"},
+{cat:"daily",kr:"이거 맛있어요!",py:"i-geo ma-sit-eo-yo",zh:"这个很好吃！（饭桌小话）"},
+{cat:"daily",kr:"주말에 뭐 하세요?",py:"ju-mal-e mwo ha-se-yo",zh:"周末做什么？（闲聊破冰）"},
+{cat:"daily",kr:"도와주셔서 감사합니다.",py:"do-wa-ju-syeo-seo gam-sa-ham-ni-da",zh:"谢谢您的帮助。"},
+{cat:"daily",kr:"전화번호를 알려 주세요.",py:"jeon-hwa-beon-ho-reul al-lyeo ju-se-yo",zh:"请告诉我电话号码。"},
+{cat:"daily",kr:"몇 시에 만날까요?",py:"myeot si-e man-nal-kka-yo",zh:"我们几点见面？"},
+{cat:"daily",kr:"날씨가 정말 좋네요!",py:"nal-ssi-ga jeong-mal jot-ne-yo",zh:"天气真好啊！（寒暄）"},
+{cat:"beauty",kr:"피부 관리를 받고 싶어요.",py:"pi-bu gwan-li-reul bat-go sip-eo-yo",zh:"我想做皮肤管理。⭐"},
+{cat:"beauty",kr:"제 피부 타입이 어떤가요?",py:"je pi-bu ta-ip-i eo-tteon-ga-yo",zh:"我的肤质属于哪种？⭐"},
+{cat:"beauty",kr:"보습 관리와 진정 관리 중에 뭐가 좋아요?",py:"bo-seup gwan-li-wa jin-jeong gwan-li jung-e mwo-ga jo-a-yo",zh:"补水管理和镇定管理哪个适合我？"},
+{cat:"beauty",kr:"머리를 자르고 싶어요. 사진처럼 해 주세요.",py:"meo-ri-reul ja-reu-go sip-eo-yo. sa-jin-cheo-reom hae ju-se-yo",zh:"我想剪发，请按照片这样剪。（美发）⭐"},
+{cat:"beauty",kr:"염색 / 펌을 하고 싶어요.",py:"yeom-saek / peom-eul ha-go sip-eo-yo",zh:"我想染发/烫发。"},
+{cat:"beauty",kr:"네일 아트 예약을 하고 싶어요.",py:"ne-il a-teu ye-ya-geul ha-go sip-eo-yo",zh:"我想预约美甲。⭐"},
+{cat:"beauty",kr:"이 색상으로 해 주세요.",py:"i saek-sang-eu-lo hae ju-se-yo",zh:"请做这个颜色。（美甲/染发通用）"},
+{cat:"beauty",kr:"데일리 메이크업을 받고 싶어요.",py:"de-il-li me-i-keu-eob-eul bat-go sip-eo-yo",zh:"我想化日常妆。（化妆）"},
+{cat:"beauty",kr:"알레르기가 있으세요?",py:"al-le-leu-gi-ga it-eu-se-yo",zh:"您有过敏史吗？（美容师必问）⭐"},
+{cat:"beauty",kr:"따끔거리면 바로 말씀해 주세요.",py:"tta-kkeum-geo-ri-myeon ba-lo mal-sseum-hae ju-se-yo",zh:"有刺痛感请马上告诉我。"},
+{cat:"beauty",kr:"홈케어 제품을 추천해 드릴게요.",py:"hom-ke-eo je-pum-eul chu-cheon-hae deu-ril-ge-yo",zh:"我给您推荐居家护理产品。"},
+{cat:"beauty",kr:"회원권을 등록해 드릴까요?",py:"hwe-won-gwon-eul deung-lok-hae deu-ril-kka-yo",zh:"要办会员卡吗？"},
+{cat:"beauty",kr:"다음 관리 주기는 2주 후가 좋아요.",py:"da-eum gwan-li ju-gi-neun i-ju hu-ga jo-a-yo",zh:"下次护理建议2周后来。⭐"},
+{cat:"beauty",kr:"화장이 잘 안 지워지면 클렌징을 두 번 해 주세요.",py:"hwa-jang-i jal an ji-wo-ji-myeon keul-len-jing-eul du beon hae ju-se-yo",zh:"妆卸不干净请做二次清洁。"}];
+const WORDS=[["abundant","/əˈbʌndənt/","丰富的","abundant rainfall 充沛的降雨"],["allocate","/ˈæləkeɪt/","分配；拨给","allocate resources 分配资源"],["ambiguous","/æmˈbɪɡjuəs/","含糊的","ambiguous answer 含糊的回答"],["ambition","/æmˈbɪʃn/","雄心","ambition to succeed 成功的雄心"],["appliance","/əˈplaɪəns/","器具","household appliance 家用电器"],["apt","/æpt/","易于…的","apt to be ill 易生病"],["arouse","/əˈraʊz/","引起；唤醒","arouse interest 引起兴趣"],["assert","/əˈsɜːt/","断言","assert one's innocence 坚称无辜"],["assess","/əˈses/","评估","assess the damage 评估损失"],["bias","/ˈbaɪəs/","偏见","gender bias 性别偏见"],["breach","/briːtʃ/","违反","breach of contract 违约"],["brisk","/brɪsk/","轻快的","brisk walk 轻快的散步"],["coherent","/kəʊˈhɪərənt/","连贯的","coherent argument 连贯的论证"],["commence","/kəˈmens/","开始","commence work 开工"],["compel","/kəmˈpel/","迫使","compel obedience 迫使服从"],["compile","/kəmˈpaɪl/","汇编","compile data 汇编资料"],["concede","/kənˈsiːd/","承认","concede defeat 承认失败"],["concur","/kənˈkɜːr/","同意","concur with 同意…"],["condense","/kənˈdens/","浓缩","condense into 浓缩成"],["contemplate","/ˈkɒntəmpleɪt/","沉思；打算","contemplate leaving 打算离开"],["contend","/kənˈtend/","竞争；主张","contend for 为…竞争"],["controversy","/ˈkɒntrəvɜːsi/","争议","arouse controversy 引发争议"],["converge","/kənˈvɜːdʒ/","汇聚","rivers converge 河流汇合"],["credible","/ˈkredəbl/","可信的","credible witness 可靠证人"],["criterion","/kraɪˈtɪəriən/","标准","selection criterion 评选标准"],["crucial","/ˈkruːʃl/","关键的","crucial decision 关键决定"],["cumulate","/ˈkjuːmjəleɪt/","累积","cumulate experience 积累经验"],["curb","/kɜːb/","控制","curb inflation 控制通胀"],["dazzle","/ˈdæzl/","使目眩","be dazzled by 被…迷住"],["degrade","/dɪˈɡreɪd/","降级；退化","environmental degrade 环境退化"],["denounce","/dɪˈnaʊns/","谴责","denounce violence 谴责暴力"],["deplete","/dɪˈpliːt/","耗尽","deplete resources 耗尽资源"],["depict","/dɪˈpɪkt/","描绘","depict life 描绘生活"],["derive","/dɪˈraɪv/","源自；获得","derive from 源自"],["descend","/dɪˈsend/","下降","descend from 起源于"],["deter","/dɪˈtɜːr/","制止","deter crime 遏制犯罪"],["deviate","/ˈdiːvieɪt/","偏离","deviate from 偏离"],["dilemma","/dɪˈlemə/","困境","face a dilemma 面临困境"],["diminish","/dɪˈmɪnɪʃ/","减少","diminish slowly 逐渐减少"],["discern","/dɪˈsɜːn/","辨别","discern truth 辨别真相"],["discrepancy","/dɪˈskrepənsi/","差异","discrepancy in 数据差异"],["dispatch","/dɪˈspætʃ/","派遣","dispatch a team 派出一队"],["disperse","/dɪˈspɜːs/","驱散","disperse the crowd 驱散人群"],["disseminate","/dɪˈsemɪneɪt/","传播","disseminate knowledge 传播知识"],["diverge","/daɪˈvɜːdʒ/","分歧","diverge from 偏离"],["diversify","/daɪˈvɜːsɪfaɪ/","多样化","diversify investment 分散投资"],["elicit","/iˈlɪsɪt/","引出","elicit a response 引出回应"],["eloquent","/ˈeləkwənt/","雄辩的","eloquent speech 雄辩的演讲"],["embark","/ɪmˈbɑːk/","着手","embark on 着手…"],["embed","/ɪmˈbed/","嵌入","embed in 嵌入…"],["embody","/ɪmˈbɒdi/","体现","embody spirit 体现精神"],["eminent","/ˈemɪnənt/","杰出的","eminent scholar 杰出学者"],["enact","/ɪˈnækt/","颁布","enact a law 颁布法律"],["endeavor","/ɪnˈdevər/","努力","endeavor to 努力…"],["endorse","/ɪnˈdɔːs/","赞同","endorse a plan 赞同计划"],["erode","/ɪˈrəʊd/","侵蚀","erode confidence 侵蚀信心"],["evoke","/ɪˈvəʊk/","唤起","evoke memories 唤起回忆"],["exacerbate","/ɪɡˈzæsəbeɪt/","加剧","exacerbate tensions 加剧紧张"],["exempt","/ɪɡˈzempt/","免除","exempt from 免除"],["exert","/ɪɡˈzɜːt/","施加","exert pressure 施压"],["exquisite","/ˈekskwɪzɪt/","精美的","exquisite craft 精美工艺"],["extol","/ɪkˈstəʊl/","赞美","extol virtues 赞美美德"],["facet","/ˈfæsɪt/","方面","every facet 每个方面"],["feasible","/ˈfiːzəbl/","可行的","feasible plan 可行计划"]];
+const READINGS=[{title:"练习1 · 美容消费与社交媒体（CET-6 缩编）",time:"建议 3 分钟",body:"近年来，医美消费在中国年轻人中迅速增长。社交媒体上的“变美日记”既分享经验，也制造容貌焦虑。专家提醒：任何医疗美容项目都有风险，消费者应选择正规机构、查验医生资质，并在术前充分沟通预期效果。理性变美，比盲目跟风更重要。",qs:[{q:"社交媒体的“变美日记”有什么两面性？",opts:["只分享经验","只制造焦虑","既分享经验也制造焦虑","与医美无关"],a:2},{q:"专家建议消费者首先要做什么？",opts:["跟风尝试","选择正规机构并查验资质","只看价格","术后不复查"],a:1},{q:"文末“理性变美”最可能的意思是？",opts:["越贵越好","充分了解风险并合理决策","完全不做医美","只信广告"],a:1}]},
+{title:"练习2 · 睡眠与记忆（CET-6 缩编）",time:"建议 3 分钟",body:"Six hours of sleep may be enough for survival, but not for excellence. Research shows that deep sleep helps consolidate vocabulary and procedural memory. Students who keep a regular sleep schedule outperform those who cram overnight, especially on tasks requiring inference and creativity.",qs:[{q:"What does research say about deep sleep?",opts:["It harms memory","It helps consolidate memory","It only helps muscles","It has no effect"],a:1},{q:"Who perform better according to the passage?",opts:["Those who cram overnight","Those with regular sleep","Those who skip sleep","Those who only nap"],a:1}]}];
+const TEMPLATES=[{t:"六级议论文万能开头",c:"With the rapid development of society, ______ has aroused wide concern. There is no doubt that ______ plays a crucial role in our life.\n随着社会快速发展，___引起了广泛关注。毫无疑问，___在我们生活中起着关键作用。"},{t:"医美咨询英文备用句（接待外国客）",c:"Welcome to our clinic. Which treatment are you interested in?\nMay I know your skin concerns?\nThe effect usually appears in 2–4 weeks.\nPlease avoid sun exposure and sauna today.\n欢迎光临，您对哪个项目感兴趣？/ 请问您的皮肤困扰是？/ 效果通常2-4周显现。/ 今天请避免日晒和桑拿。"},{t:"图表作文转折句",c:"In contrast, ______ witnessed a dramatic increase, whereas ______ remained stable.\n相比之下，___大幅上升，而___保持稳定。"}];
+const DAILY=["💄 오늘 예뻐지는 중! 今天也在变美路上 — 벚꽃보다 예쁜 피부。三天不学，陪练团就超你了。","📘 Abundant effort brings abundant results. 充沛的努力带来充沛的结果。今天刷 10 个词 + 1 组测验。","💄어서 오세요! 欢迎光临 — 把接待语读 3 遍，录下自己的发音对比。","📘Curb anxiety, commence action. 控制焦虑，开始行动。六级阅读限时 3 分钟练一篇。","💄마취 크림을 발라 드릴게요. 我给您敷麻药 — 医美高频句，跟读+测验。","📘Coherent writing wins. 连贯的写作制胜。背 1 个万能开头，默写 1 遍。","💄효과는 언제부터 나와요? 效果何时显现 — 咨询必问句，中译韩挑战。","🗣️화장실이 어디예요? 洗手间在哪 — 日常沟通第一课，先拿下问路三件套。","💅피부 관리를 받고 싶어요. 我想做皮肤管理 — 美容行业开场白，跟读 3 遍。"];
+const BOTS=[{name:"🇰🇷 首尔室长Jin",base:880,grow:26},{name:"💄 皮肤管理师Mina",base:720,grow:31},{name:"📘 六级630分学霸",base:810,grow:22},{name:"🈴 延世语学堂小林",base:540,grow:35},{name:"💤 三天打鱼君",base:300,grow:6},{name:"🐢 坚持蜗牛",base:420,grow:14}];
+
+/* ============ 存储 ============ */
+const KEY="seoul-cet6-hub-v1";
+const ACC="seoul-cet6-accounts-v1";
+let S=null, SESSION=null;
+function todayStr(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function freshStore(name){const id="u"+Date.now();const s={activeId:id,profiles:{},checked:{}};s.profiles[id]={name:name||"我",ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};return s;}
+function loadAcc(){try{return JSON.parse(localStorage.getItem(ACC))||{users:{},session:null};}catch(e){return{users:{},session:null};}}
+function saveAcc(a){try{localStorage.setItem(ACC,JSON.stringify(a));}catch(e){}}
+function storeKey(u){return KEY+"::"+u;}
+function load(){const acc=loadAcc();SESSION=acc.session;if(!SESSION){S=freshStore("我");return;}
+  try{const raw=localStorage.getItem(storeKey(SESSION));if(raw){S=JSON.parse(raw);return;}}catch(e){}
+  try{const legacy=localStorage.getItem(KEY);if(legacy){S=JSON.parse(legacy);localStorage.setItem(storeKey(SESSION),legacy);return;}}catch(e){}
+  S=freshStore(SESSION);}
+function save(){try{localStorage.setItem(SESSION?storeKey(SESSION):KEY,JSON.stringify(S));}catch(e){}}
+async function hashPw(pw,salt){const s=salt+"::"+pw;
+  try{if(window.crypto&&crypto.subtle){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");}}catch(e){}
+  let h1=0xdeadbeef,h2=0x41c6ce57;
+  for(let i=0;i<s.length;i++){const ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return"fb"+(h2>>>0).toString(16)+(h1>>>0).toString(16);}
+let gateMode="login";
+function setGateMode(m){gateMode=m;$("tab-login").className="btn small "+(m==="login"?"primary":"ghost");$("tab-reg").className="btn small "+(m==="reg"?"primary":"ghost");$("gate-go").textContent=m==="login"?"登录 →":"注册并进入 →";$("gate-msg").textContent="";}
+function enterApp(){load();renderAll();document.body.classList.add("in");toast("欢迎回来，"+SESSION+" 👋");}
+$("tab-login").onclick=()=>setGateMode("login");
+$("tab-reg").onclick=()=>setGateMode("reg");
+$("gate-go").onclick=async()=>{const name=$("gate-user").value.trim(),pw=$("gate-pw").value,msg=$("gate-msg");
+  if(!name||name.length>12){msg.textContent="昵称填 1~12 个字";return;}
+  if(pw.length<4){msg.textContent="密码至少 4 位";return;}
+  msg.textContent="验证中…";
+  const acc=loadAcc();
+  if(gateMode==="reg"){if(acc.users[name]){msg.textContent="昵称已被注册，换一个或直接登录";return;}
+    const salt="s"+Date.now().toString(36)+Math.floor(Math.random()*1e6);
+    acc.users[name]={salt:salt,hash:await hashPw(pw,salt)};acc.session=name;saveAcc(acc);enterApp();}
+  else{const u=acc.users[name];if(!u){msg.textContent="没这个昵称，先点「注册」";return;}
+    if(await hashPw(pw,u.salt)!==u.hash){msg.textContent="密码不对，再试试";return;}
+    acc.session=name;saveAcc(acc);enterApp();}};
+[$("gate-user"),$("gate-pw")].forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Enter")$("gate-go").click();}));
+$("btn-logout").onclick=()=>{save();const a=loadAcc();a.session=null;saveAcc(a);SESSION=null;document.body.classList.remove("in");$("gate-pw").value="";setGateMode("login");toast("已退出登录");};
+function me(){return S.profiles[S.activeId];}
+function total(p){return (p.ptsKR||0)+(p.ptsEN||0);}
+function levelOf(t){const lv=Math.min(10,Math.floor(t/200)+1);return{lv,need:lv*200,next:lv*200-t};}
+load();
+
+/* 学习计时（切页也累计） */
+let sessionStart=Date.now();
+setInterval(()=>{const m=me();const add=Math.floor((Date.now()-sessionStart)/1000);if(add>=10){sessionStart=Date.now();const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};m.hist[t].sec+=add;m.seconds+=add;save();renderHome();}},10000);
+window.addEventListener("beforeunload",()=>{const m=me();const add=Math.floor((Date.now()-sessionStart)/1000);if(add>0){const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};m.hist[t].sec+=add;m.seconds+=add;save();}});
+
+/* ============ 通用 ============ */
+const $=id=>document.getElementById(id);
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2200);}
+function speak(text,lang){try{if(!("speechSynthesis" in window)){toast("当前浏览器不支持发音，用拼音跟读即可");return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.85;const vs=speechSynthesis.getVoices();const v=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang.slice(0,2)));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){toast("发音调用失败");}}
+function addPts(track,n,qGood,qAll){const m=me();const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};
+  if(track==="kr")m.ptsKR+=n;else m.ptsEN+=n;
+  m.hist[t].pts+=n;if(qAll){m.hist[t].q+=qAll;m.q+=qAll;}if(qGood){m.hist[t].c+=qGood;m.correct+=qGood;}
+  const before=levelOf(total(m)-n).lv,after=levelOf(total(m)).lv;save();renderAll();
+  if(after>before){celebrate();toast("🎉 升级到 Lv."+after+"！继续冲榜！");}}
+function celebrate(){const c=$("confetti");const colors=["#e0447c","#1d3fae","#c98a12","#1d9e6b"];for(let i=0;i<40;i++){const s=document.createElement("i");s.style.left=Math.random()*100+"vw";s.style.background=colors[i%4];s.style.animationDelay=(Math.random()*.5)+"s";c.appendChild(s);setTimeout(()=>s.remove(),2200);}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ============ 导航 ============ */
+function goto(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("pg-"+p).classList.add("active");
+  document.querySelectorAll("#sidenav button, #tabbar button").forEach(b=>b.classList.toggle("active",b.dataset.page===p));window.scrollTo({top:0,behavior:"smooth"});}
+document.querySelectorAll("#sidenav button,#tabbar button,.track-card,[data-goto]").forEach(b=>b.addEventListener("click",()=>goto(b.dataset.goto||b.dataset.page)));
+
+/* ============ 首页 ============ */
+function renderHome(){const m=me();const t=total(m);$("h-points").textContent=t;
+  const days=Object.keys(S.checked).sort();let streak=0;let d=new Date();
+  if(!S.checked[todayStr()])d.setDate(d.getDate()-1);
+  while(S.checked[todayStr(d)]){streak++;d.setDate(d.getDate()-1);}
+  $("h-streak").textContent=streak;
+  const h=m.hist[todayStr()]||{sec:0,pts:0};
+  $("k-today-min").textContent=Math.floor((h.sec||0)/60);$("k-today-pts").textContent=h.pts||0;
+  const lv=levelOf(t);$("k-level").textContent="Lv."+lv.lv;$("k-level-sub").textContent=lv.lv>=10?"已满级，大佬！":"再得 "+lv.next+" 分升级";
+  const goal=Math.min(60,Math.floor((h.sec||0)/60)+Math.min(30,(h.pts||0)/2));const pct=Math.min(100,Math.round(goal/60*100));
+  $("goal-bar").style.width=pct+"%";$("goal-txt").textContent=pct+"%（每天60分：学习+积分）";
+  $("profile-name").textContent=m.name;$("kr-pts-tag").textContent="韩语积分 "+m.ptsKR;$("en-pts-tag").textContent="英语积分 "+m.ptsEN;$("rank-me").textContent=t;
+  const seed=new Date().getDate()+new Date().getMonth()*31;$("daily-line").textContent=DAILY[seed%DAILY.length];
+  $("hello").textContent=(new Date().getHours()<12?"上午好":"你好")+"，" + m.name + "，今天也一起加油 👋";
+  drawBars($("mini-bars"),7);}
+$("btn-checkin").addEventListener("click",()=>{const t=todayStr();if(S.checked[t]){toast("今天已打卡，明天再来 🔥");return;}S.checked[t]=1;save();addPts("kr",10);addPts("en",10);toast("📅 打卡成功 +20，连续打卡别断！");});
+$("btn-profile").addEventListener("click",()=>{const ids=Object.keys(S.profiles);if(ids.length<2){const n=prompt("新建档案：输入名字（比如：朋友小王，可当面PK）","朋友");if(n){const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;save();renderAll();toast("已切换到 "+n);}}else{const m=me();const list=ids.map(id=>S.profiles[id].name+"("+(id===S.activeId?"当前":"切")+")").join(" / ");const n=prompt("输入要切换/新建的档案名。现有："+list,m.name);if(!n)return;const found=ids.find(id=>S.profiles[id].name===n);if(found){S.activeId=found;}else{const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;}save();renderAll();}});
+
+/* ============ 韩语 ============ */
+function renderPhon(){const mk=(arr,el,lang)=>{$(el).innerHTML="";arr.forEach(([k,py,zh])=>{const d=document.createElement("div");d.className="phon";d.innerHTML="<b>"+k+"</b><span>"+py+" · "+zh+"</span>";d.onclick=()=>speak(k,lang);$(el).appendChild(d);});};
+  mk(VOWELS,"vowels","ko-KR");mk(CONSONANTS,"consonants","ko-KR");}
+$("btn-phon-done").addEventListener("click",()=>{addPts("kr",15);toast("发音打卡 +15，继续攻接待语！");});
+const CATN={greet:"接待礼貌语",daily:"日常沟通",beauty:"美容行业 ⭐",consult:"医美咨询 ⭐",care:"术前术后",price:"价格预约投诉"};
+function renderKRList(){const f=$("kr-filter").value;const box=$("kr-list");box.innerHTML="";
+  PHRASES.filter(p=>f==="all"||p.cat===f).forEach(p=>{const d=document.createElement("div");d.className="phrase";
+    d.innerHTML='<div class="tag rose">'+CATN[p.cat]+'</div><div class="kr">'+p.kr+'</div><div class="py">'+p.py+'</div><div class="zh">'+p.zh+'</div><div class="ops"></div>';
+    const ops=d.querySelector(".ops");
+    const b1=document.createElement("button");b1.className="btn small rose";b1.textContent="🔊 跟读";b1.onclick=()=>speak(p.kr,"ko-KR");
+    const b2=document.createElement("button");b2.className="btn small";b2.textContent="✅ 会了 +2";b2.onclick=()=>{addPts("kr",2);toast("+2，积少成多！");};
+    ops.appendChild(b1);ops.appendChild(b2);box.appendChild(d);});}
+$("kr-filter").addEventListener("change",renderKRList);
+let krStreak=0;
+$("btn-kr-quiz").addEventListener("click",()=>{const box=$("kr-quiz");const qs=shuffle(PHRASES).slice(0,10);let idx=0,good=0;krStreak=0;
+  function ask(){if(idx>=qs.length){addPts("kr",good*10+(good>=8?20:0),good,qs.length);box.innerHTML='<div class="phrase">🎉 本轮 '+good+'/10，积分已入账'+(good>=8?"（+20 优秀奖励）":"")+'。<br><button class="btn small navy" id="kr-again">再来一组</button></div>';$("kr-again").onclick=()=>$("btn-kr-quiz").click();return;}
+    const q=qs[idx];const type=Math.random()<.5?"ko2zh":"zh2ko";
+    const pool=shuffle(PHRASES.filter(p=>p!==q)).slice(0,3);
+    const title=type==="ko2zh"?('“'+q.kr+'” 是什么意思？'):('“'+q.zh+'” 用韩语怎么说？');
+    const answer=type==="ko2zh"?q.zh:q.kr;
+    const opts=shuffle([answer].concat(pool.map(p=>type==="ko2zh"?p.zh:p.kr)));
+    box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/10 · '+title+'</div><div style="margin-bottom:8px"><button class="btn small ghost" id="kr-hear">🔊 听发音</button></div><div class="quiz-opts"></div>';
+    $("kr-hear").onclick=()=>speak(q.kr,"ko-KR");
+    const wrap=box.querySelector(".quiz-opts");
+    opts.forEach(o=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{const ok=o===answer;
+      wrap.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===answer)x.classList.add("correct");});
+      if(!ok)b.classList.add("wrong");else{good++;krStreak++;if(krStreak>=3)toast("🔥 连对 x"+krStreak+"，手感火热！");}
+      if(!ok)krStreak=0;
+      setTimeout(()=>{idx++;ask();},650);};wrap.appendChild(b);});}
+  ask();box.scrollIntoView({behavior:"smooth",block:"center"});});
+
+/* ============ 英语 ============ */
+let wi=0;
+function renderWord(){const w=WORDS[wi%WORDS.length];$("w-en").textContent=w[0];$("w-ph").textContent=w[1];$("w-zh").textContent=w[2];$("w-ex").textContent=w[3];$("wordcard").classList.remove("flip");}
+$("wordcard").addEventListener("click",()=>$("wordcard").classList.toggle("flip"));
+$("btn-word-next").addEventListener("click",()=>{const m=me();let next=wi+1;for(let k=0;k<WORDS.length;k++){if(!m.known[WORDS[(wi+1+k)%WORDS.length][0]]){next=wi+1+k;break;}}wi=next;renderWord();});
+$("btn-word-known").addEventListener("click",()=>{const m=me();const w=WORDS[wi%WORDS.length];if(!m.known[w[0]]){m.known[w[0]]=1;save();}addPts("en",5);wi++;renderWord();});
+let enStreak=0;
+$("btn-spell").addEventListener("click",()=>{const box=$("en-quiz");const qs=shuffle(WORDS).slice(0,10);let idx=0,good=0;enStreak=0;
+  function ask(){if(idx>=qs.length){addPts("en",good*10+(good>=8?20:0),good,qs.length);box.innerHTML='<div class="phrase">🎉 拼写 '+good+'/10 已入账'+(good>=8?"（+20 优秀奖励）":"")+'。<br><button class="btn small navy" id="en-again">再来一组</button></div>';$("en-again").onclick=()=>$("btn-spell").click();return;}
+    const q=qs[idx];const mode=Math.random()<.5?"choice":"spell";
+    if(mode==="choice"){const opts=shuffle([q[2]].concat(shuffle(WORDS.filter(w=>w!==q)).slice(0,3).map(w=>w[2])));
+      box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/10 · <b>'+q[0]+'</b> '+q[1]+' 是什么意思？</div><div style="margin-bottom:8px"><button class="btn small ghost" id="en-hear">🔊 听发音</button></div><div class="quiz-opts"></div>';
+      $("en-hear").onclick=()=>speak(q[0],"en-US");
+      const wrap=box.querySelector(".quiz-opts");
+      opts.forEach(o=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{const ok=o===q[2];
+        wrap.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===q[2])x.classList.add("correct");});
+        if(!ok)b.classList.add("wrong");else{good++;enStreak++;if(enStreak>=3)toast("🔥 连对 x"+enStreak+"！六级词汇拿下！");}
+        if(!ok)enStreak=0;setTimeout(()=>{idx++;ask();},650);};wrap.appendChild(b);});}
+    else{box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/10 · 拼写：<b>'+q[2]+'</b><br><span style="font-size:13px;color:var(--muted)">'+q[3]+'</span></div><div style="margin-bottom:8px"><button class="btn small ghost" id="en-hear2">🔊 听发音</button></div><input type="text" id="spell-in" placeholder="输入英文单词…" autocomplete="off"><div class="row" style="margin-top:8px"><button class="btn small navy" id="spell-ok">提交</button></div><div id="spell-fb" style="margin-top:8px;font-size:14px"></div>';
+      $("en-hear2").onclick=()=>speak(q[0],"en-US");$("spell-in").focus();
+      const sub=()=>{const v=$("spell-in").value.trim().toLowerCase();const ok=v===q[0].toLowerCase();
+        $("spell-fb").innerHTML=ok?"✅ 正确！":"❌ 答案是 <b>"+q[0]+"</b>";if(ok){good++;enStreak++;}else enStreak=0;
+        setTimeout(()=>{idx++;ask();},900);};
+      $("spell-ok").onclick=sub;$("spell-in").onkeydown=e=>{if(e.key==="Enter")sub();};}}
+  ask();box.scrollIntoView({behavior:"smooth",block:"center"});});
+function renderReading(){const box=$("reading");box.innerHTML="";READINGS.forEach((r,ri)=>{const d=document.createElement("div");d.className="phrase";
+  d.innerHTML="<b>"+r.title+"</b> <span class='tag'>"+r.time+"</span><p style='font-size:14px;line-height:1.8'>"+r.body+"</p><div class='rq'></div>";
+  const rq=d.querySelector(".rq");r.qs.forEach((q,qi)=>{const qd=document.createElement("div");qd.style.margin="8px 0";
+    qd.innerHTML="<div style='font-weight:700'>"+(qi+1)+". "+q.q+"</div>";const ow=document.createElement("div");ow.className="quiz-opts";ow.style.marginTop="6px";
+    q.opts.forEach((o,oi)=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{const ok=oi===q.a;
+      ow.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===q.opts[q.a])x.classList.add("correct");});
+      if(!ok)b.classList.add("wrong");else addPts("en",10,1,1);
+      if(!ok)addPts("en",0,0,1);};ow.appendChild(b);});
+    qd.appendChild(ow);rq.appendChild(qd);});
+  box.appendChild(d);});}
+function renderTemplates(){const box=$("templates");box.innerHTML="";TEMPLATES.forEach(t=>{const d=document.createElement("details");d.className="tmpl";
+  d.innerHTML="<summary>"+t.t+"</summary><pre style='white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8'>"+t.c+"</pre>";
+  const b=document.createElement("button");b.className="btn small";b.textContent="📋 复制模板";b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(t.c);toast("已复制，去默写一遍吧！");addPts("en",3);};
+  d.appendChild(b);box.appendChild(d);});}
+
+/* ============ 记录 ============ */
+function last7(){const out=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);out.push(todayStr(d));}return out;}
+function drawBars(el,n){const m=me();const days=last7().slice(7-n);const max=Math.max(10,...days.map(d=>(m.hist[d]||{pts:0}).pts));el.innerHTML="";
+  days.forEach(d=>{const p=(m.hist[d]||{pts:0}).pts;const h=Math.round(p/max*120)+6;const w=document.createElement("div");w.className="bar";
+    w.innerHTML="<i style='height:"+h+"px;width:80%;background:"+(d===todayStr()?"linear-gradient(180deg,#e0447c,#c98a12)":"#1c1a17")+"'></i><span>"+d.slice(5)+"<br>"+p+"分</span>";el.appendChild(w);});}
+function renderLog(){const m=me();$("s-total-min").textContent=Math.floor(m.seconds/60);$("s-total-q").textContent=m.q||0;
+  $("s-acc").textContent=(m.q?Math.round((m.correct||0)/m.q*100):0)+"%";
+  drawBars($("big-bars"),7);
+  const keys=Object.keys(m.hist).sort().reverse().slice(0,30);const h=$("hist");h.innerHTML=keys.length?"":"<div>还没有记录，去学一组测验吧～</div>";
+  keys.forEach(d=>{const r=m.hist[d];const row=document.createElement("div");
+    row.innerHTML="<span>"+d+" · "+Math.floor((r.sec||0)/60)+"分钟 · "+(r.c||0)+"/"+(r.q||0)+" 对</span><b>+"+(r.pts||0)+"分</b>";h.appendChild(row);});}
+$("btn-export").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="seoul-study-backup-"+todayStr()+".json";a.click();toast("备份已导出，存好别丢！");});
+$("btn-reset").addEventListener("click",()=>{if(confirm("清空本机所有学习数据？建议先导出备份！")){localStorage.removeItem(KEY);load();renderAll();toast("已清空，从零再战！");}});
+
+/* ============ 排行 ============ */
+function botScore(b){const t=todayStr();let n=0;for(const ch of t)n+=ch.charCodeAt(0);const dayIdx=Math.floor(n/3)+new Date().getDate();return b.base+dayIdx*b.grow%400+((n+b.base)%37);}
+$("btn-add-profile").addEventListener("click",()=>{const n=prompt("新档案名字（朋友/家人，可同设备PK）","朋友");if(!n)return;const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};save();renderAll();toast("欢迎 "+n+" 加入PK！");});
+function renderRank(){const rows=Object.entries(S.profiles).map(([id,p])=>({id,name:p.name,t:total(p),kr:p.ptsKR,en:p.ptsEN,me:id===S.activeId})).sort((a,b)=>b.t-a.t);
+  const medals=["🥇","🥈","🥉"];let html="<tr><th>#</th><th>名字</th><th>韩语</th><th>英语</th><th>总分</th></tr>";
+  rows.forEach((r,i)=>{html+="<tr class='"+(r.me?"me":"")+"'><td class='medal'>"+(medals[i]||(i+1))+"</td><td>"+r.name+(r.me?"（我）":"")+"</td><td>"+r.kr+"</td><td>"+r.en+"</td><td>"+r.t+"</td></tr>";});
+  $("local-rank").innerHTML=html;
+  const all=rows.map(r=>({name:r.name+(r.me?"（我）":""),t:r.t})).concat(BOTS.map(b=>({name:b.name,t:botScore(b)}))).sort((a,b)=>b.t-a.t);
+  let h2="<tr><th>#</th><th>选手</th><th>总分</th></tr>";all.slice(0,10).forEach((r,i)=>{h2+="<tr class='"+(r.name.includes("（我）")?"me":"")+"'><td class='medal'>"+(medals[i]||(i+1))+"</td><td>"+r.name+"</td><td>"+r.t+"</td></tr>";});
+  $("bot-rank").innerHTML=h2;}
+$("btn-cloud").addEventListener("click",async()=>{const url=$("cloud-url").value.trim()||window.RANK_API_URL||"";
+  if(!url){toast("先粘贴后端 rank 接口地址");return;}
+  window.RANK_API_URL=url;$("cloud-status").textContent="正在连接 "+url+" …";
+  try{const r=await fetch(url,{method:"GET"});const j=await r.json();$("cloud-status").textContent="✅ 云端已通！返回 "+JSON.stringify(j).slice(0,120)+" —— 下一步把 submitScore() 接进来即可变真人榜。";toast("云端连接成功！");}
+  catch(e){$("cloud-status").textContent="❌ 连不上："+e.message+"。检查接口是否允许跨域（CORS）/地址是否正确。单机功能不受影响。";}});
+/* 云榜提交预留：后端准备好后直接调用 */
+// async function submitScore(){await fetch(window.RANK_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:me().name,kr:me().ptsKR,en:me().ptsEN,total:total(me())})});}
+
+function renderAll(){renderHome();renderKRList();renderWord();renderReading();renderTemplates();renderLog();renderRank();}
+renderPhon();if(loadAcc().session){enterApp();}
+if("speechSynthesis" in window){speechSynthesis.getVoices();}
+</script>
+<!--
+☁️ 真实多人排行接入指南（给站长/后端看）：
+1) 任选后端：Supabase(最省事) / Firebase / Cloudflare D1+Functions。
+2) 提供两个接口：GET ?action=list 返回 [{name,total,kr,en}]；POST ?action=submit 接收 {name,kr,en,total}。
+3) 把接口地址填进 window.RANK_API_URL（或在排行页输入框粘贴），本页 submitScore() 已写好，直接启用即可。
+4) 当前版本：localStorage 单机记录 + 多档案本机PK + 虚拟陪练团，保证没后端也能用。
+-->
+</body>
+</html>
