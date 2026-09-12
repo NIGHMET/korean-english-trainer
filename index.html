@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>首尔备考室 · 韩语日常 × 英语六级</title>
+<title>首尔备考室 · 韩语日常 × 英语四级六级</title>
 <style>
 :root{
   --paper:#faf6ef; --ink:#1c1a17; --muted:#8a8177;
@@ -138,7 +138,7 @@ details.tmpl summary{cursor:pointer;font-weight:700}
 <div id="app">
   <div class="topbar"><div class="topbar-inner">
     <div class="logo">서울<br><small>SEOUL</small></div>
-    <div class="brand"><h1>首尔备考室 · 서울备考室</h1><p>韩语日常沟通 × 英语六级 · 学习记录 · 积分 · 排行</p></div>
+    <div class="brand"><h1>首尔备考室 · 서울备考室</h1><p>韩语日常沟通 × 英语四级六级 · 学习记录 · 积分 · 排行</p></div>
     <div class="hstats">
       <div class="hstat"><b id="h-points">0</b><span>总积分 ⭐</span></div>
       <div class="hstat"><b id="h-streak">0</b><span>连续打卡 🔥</span></div>
@@ -151,9 +151,10 @@ details.tmpl summary{cursor:pointer;font-weight:700}
       <button data-page="home" class="active">🏠 首页仪表盘</button>
       <button data-page="kr">💬 韩语 · 日常沟通</button>
       <button data-page="en">📘 英语 · CET-6</button>
+      <button data-page="c4">📗 英语 · CET-4</button>
       <button data-page="log">🗂️ 学习记录</button>
       <button data-page="rank">🏆 积分排行</button>
-      <div class="hint">💡 零基础先学「发音40音」→「日常沟通」→每天 1 组测验。训练句里埋了美容行业关键词，日常过关后再切美容/医美场景。<br>六级先刷「核心词卡」→每天 1 篇阅读 + 1 次拼写挑战。<br>所有记录保存在本机浏览器，换设备前记得去「学习记录」导出备份。</div>
+      <div class="hint">💡 零基础先学「发音40音」→「日常沟通」→每天 1 组测验。训练句里埋了美容行业关键词，日常过关后再切美容/医美场景。<br>六级先刷「核心词卡」→每天 1 篇阅读 + 1 次拼写挑战。四级用「听音辨义 + 选词填空 + 汉译英 + 词义速配」换着花样练，避免只认词不会用。<br>所有记录保存在本机浏览器，换设备前记得去「学习记录」导出备份。</div>
     </nav>
     <main>
       <!-- HOME -->
@@ -175,6 +176,7 @@ details.tmpl summary{cursor:pointer;font-weight:700}
         </div>
         <div class="track">
           <div class="track-card kr" data-goto="kr"><h3>💬 韩语 · 日常沟通</h3><p>发音40音 → 问路/打车/吃饭/闲聊 → 先能开口说话。训练句里带美容行业关键词，日常过关自然过渡到上岗话术。</p><span class="go">进入韩语 →</span></div>
+          <div class="track-card en" data-goto="c4" style="background:linear-gradient(135deg,#1d9e6b,#0d5c3e 75%,#06301f)"><h3>📗 英语 · CET-4</h3><p>四级全能训练：词卡速记 → 听音辨义 → 选词填空 → 汉译英 → 词义速配。五种形式轮着练，听说读写一起抓。</p><span class="go">进入四级 →</span></div>
           <div class="track-card en" data-goto="en"><h3>📘 英语 · CET-6</h3><p>核心高频词卡 → 拼写挑战 → 阅读实战 → 翻译写作模板。连对有加成，冲榜最快。</p><span class="go">进入英语 →</span></div>
         </div>
         <div class="card">
@@ -243,6 +245,53 @@ details.tmpl summary{cursor:pointer;font-weight:700}
         </div>
       </section>
 
+      <!-- C4 -->
+      <section class="page" id="pg-c4">
+        <div class="card">
+          <h2>📗 英语 · 四级全能训练</h2>
+          <p class="sub">路线：① 核心词卡 ② 听音辨义 ③ 选词填空 ④ 汉译英 ⑤ 词义速配。五种形式轮换着练：只认识单词没用，要能听出来、用进句子里、翻得出中文。连对有加成。</p>
+          <div><span class="tag navy" style="background:#e0f5ea;border-color:#0d5c3e">CET-4</span><span class="tag">听力</span><span class="tag">词汇运用</span><span class="tag">翻译</span><span class="tag gold" id="c4-pts-tag">四级积分 0</span></div>
+        </div>
+        <div class="card">
+          <h2>① 四级核心词卡</h2>
+          <p class="sub">点击卡片翻面看中文和例句。掌握了点「记住了」，会降低下次出现频率并加分。</p>
+          <div class="wordcard" id="c4-wordcard"><div class="word-inner"><div class="w-front"><div style="font-size:30px;font-weight:900" id="c4-w-en">abandon</div><div style="color:var(--muted);font-size:13px" id="c4-w-ph">/əˈbændən/</div><div style="font-size:12px;color:var(--muted)">点击翻面</div></div><div class="w-back"><div style="font-size:22px;font-weight:800" id="c4-w-zh">放弃</div><div style="font-size:13px;color:var(--muted)" id="c4-w-ex">abandon the plan 放弃计划</div></div></div></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn small" id="c4-btn-next">下一个 →</button>
+            <button class="btn small navy" id="c4-btn-known">✅ 记住了 +5</button>
+            <button class="btn small rose" id="c4-btn-listen">🎧 听音辨义（10题）</button>
+          </div>
+          <div id="c4-quiz-a"></div>
+        </div>
+        <div class="card">
+          <h2>② 听音辨义</h2>
+          <p class="sub">四级听力第一步：耳朵先认词。点 🔊 听发音/句子，选对中文意思。听不清可以重复播放，不限次数。</p>
+          <div class="row" style="margin-bottom:8px">
+            <button class="btn small rose" id="c4-btn-listen2">🎧 开始单词听力（10题）</button>
+            <button class="btn small navy" id="c4-btn-listen3">🎧 开始句子听力（10题）</button>
+          </div>
+          <div id="c4-quiz-b"></div>
+        </div>
+        <div class="card">
+          <h2>③ 选词填空</h2>
+          <p class="sub">四级选词填空题型：读句子语境，选最合适的词。答错会显示解析。</p>
+          <div class="row" style="margin-bottom:8px"><button class="btn small navy" id="c4-btn-cloze">开始选词填空（10题）</button></div>
+          <div id="c4-quiz-c"></div>
+        </div>
+        <div class="card">
+          <h2>④ 汉译英 · 打字翻译</h2>
+          <p class="sub">看到中文，亲手把英文打出来。比对时忽略大小写和标点，答完看参考答案，学地道表达。</p>
+          <div class="row" style="margin-bottom:8px"><button class="btn small navy" id="c4-btn-trans">开始翻译练习（5题）</button></div>
+          <div id="c4-quiz-d"></div>
+        </div>
+        <div class="card">
+          <h2>⑤ 词义速配 · 小游戏</h2>
+          <p class="sub">左边点一个单词，右边点它的意思，配对成功翻绿。限时心算最快纪录，练反应也练词感。</p>
+          <div class="row" style="margin-bottom:8px"><button class="btn small rose" id="c4-btn-match">开始速配（5对）</button><span class="tag gold" id="c4-match-best">最快纪录：未测</span></div>
+          <div id="c4-match"></div>
+        </div>
+      </section>
+
       <!-- LOG -->
       <section class="page" id="pg-log">
         <div class="card">
@@ -284,6 +333,7 @@ details.tmpl summary{cursor:pointer;font-weight:700}
     <button data-page="home" class="active">🏠<br>首页</button>
     <button data-page="kr">💄<br>韩语</button>
     <button data-page="en">📘<br>英语</button>
+    <button data-page="c4">📗<br>四级</button>
     <button data-page="log">🗂️<br>记录</button>
     <button data-page="rank">🏆<br>排行</button>
   </nav>
@@ -291,7 +341,7 @@ details.tmpl summary{cursor:pointer;font-weight:700}
 <div id="gate"><div class="gate-card">
   <div class="logo">서울<br><small>SEOUL</small></div>
   <h2>首尔备考室</h2>
-  <p class="sub">韩语日常沟通 × 英语六级<br>登录后学习记录、积分按账号隔离。<br>（本机演示版：换浏览器/设备需在“记录页”导出备份）</p>
+  <p class="sub">韩语日常沟通 × 英语四级六级<br>登录后学习记录、积分按账号隔离。<br>（本机演示版：换浏览器/设备需在“记录页”导出备份）</p>
   <div class="row" style="justify-content:center;margin-bottom:8px">
     <button class="btn small primary" id="tab-login">登录</button>
     <button class="btn small ghost" id="tab-reg">注册</button>
@@ -367,13 +417,18 @@ const READINGS=[{title:"练习1 · 美容消费与社交媒体（CET-6 缩编）
 const TEMPLATES=[{t:"六级议论文万能开头",c:"With the rapid development of society, ______ has aroused wide concern. There is no doubt that ______ plays a crucial role in our life.\n随着社会快速发展，___引起了广泛关注。毫无疑问，___在我们生活中起着关键作用。"},{t:"医美咨询英文备用句（接待外国客）",c:"Welcome to our clinic. Which treatment are you interested in?\nMay I know your skin concerns?\nThe effect usually appears in 2–4 weeks.\nPlease avoid sun exposure and sauna today.\n欢迎光临，您对哪个项目感兴趣？/ 请问您的皮肤困扰是？/ 效果通常2-4周显现。/ 今天请避免日晒和桑拿。"},{t:"图表作文转折句",c:"In contrast, ______ witnessed a dramatic increase, whereas ______ remained stable.\n相比之下，___大幅上升，而___保持稳定。"}];
 const DAILY=["💄 오늘 예뻐지는 중! 今天也在变美路上 — 벚꽃보다 예쁜 피부。三天不学，陪练团就超你了。","📘 Abundant effort brings abundant results. 充沛的努力带来充沛的结果。今天刷 10 个词 + 1 组测验。","💄어서 오세요! 欢迎光临 — 把接待语读 3 遍，录下自己的发音对比。","📘Curb anxiety, commence action. 控制焦虑，开始行动。六级阅读限时 3 分钟练一篇。","💄마취 크림을 발라 드릴게요. 我给您敷麻药 — 医美高频句，跟读+测验。","📘Coherent writing wins. 连贯的写作制胜。背 1 个万能开头，默写 1 遍。","💄효과는 언제부터 나와요? 效果何时显现 — 咨询必问句，中译韩挑战。","🗣️화장실이 어디예요? 洗手间在哪 — 日常沟通第一课，先拿下问路三件套。","💅피부 관리를 받고 싶어요. 我想做皮肤管理 — 美容行业开场白，跟读 3 遍。"];
 const BOTS=[{name:"🇰🇷 首尔室长Jin",base:880,grow:26},{name:"💄 皮肤管理师Mina",base:720,grow:31},{name:"📘 六级630分学霸",base:810,grow:22},{name:"🈴 延世语学堂小林",base:540,grow:35},{name:"💤 三天打鱼君",base:300,grow:6},{name:"🐢 坚持蜗牛",base:420,grow:14}];
+/* ============ CET-4 数据 ============ */
+const WORDS4=[["abandon","/əˈbændən/","放弃","abandon the plan 放弃计划"],["absorb","/əbˈzɔːb/","吸收","absorb knowledge 吸收知识"],["academic","/ˌækəˈdemɪk/","学术的","academic year 学年"],["accomplish","/əˈkʌmplɪʃ/","完成","accomplish a task 完成任务"],["accumulate","/əˈkjuːmjəleɪt/","积累","accumulate experience 积累经验"],["accurate","/ˈækjərət/","准确的","accurate data 准确的数据"],["acquire","/əˈkwaɪər/","获得","acquire skills 习得技能"],["adapt","/əˈdæpt/","适应；改编","adapt to 适应…"],["adequate","/ˈædɪkwət/","足够的","adequate sleep 足够的睡眠"],["adjust","/əˈdʒʌst/","调整","adjust the plan 调整计划"],["admire","/ədˈmaɪər/","钦佩","admire her courage 钦佩她的勇气"],["adopt","/əˈdɒpt/","采用；收养","adopt a method 采用方法"],["advocate","/ˈædvəkeɪt/","提倡","advocate green travel 提倡绿色出行"],["ambition","/æmˈbɪʃn/","抱负","achieve one's ambition 实现抱负"],["anticipate","/ænˈtɪsɪpeɪt/","预期","anticipate problems 预判问题"],["apparent","/əˈpærənt/","明显的","apparent reason 明显的原因"],["appreciate","/əˈpriːʃieɪt/","感激；欣赏","appreciate your help 感谢你的帮助"],["approach","/əˈprəʊtʃ/","方法；接近","a new approach 新方法"],["appropriate","/əˈprəʊpriət/","恰当的","appropriate time 恰当的时机"],["artificial","/ˌɑːtɪˈfɪʃl/","人工的","artificial intelligence 人工智能"],["assure","/əˈʃʊər/","保证","assure quality 保证质量"],["available","/əˈveɪləbl/","可获得的","tickets available 有票"],["aware","/əˈweər/","意识到的","be aware of 意识到"],["barrier","/ˈbæriər/","障碍","language barrier 语言障碍"],["benefit","/ˈbenɪfɪt/","好处；受益","health benefit 健康益处"],["capacity","/kəˈpæsəti/","容量；能力","production capacity 产能"],["challenge","/ˈtʃælɪndʒ/","挑战","face a challenge 面对挑战"],["circumstance","/ˈsɜːkəmstəns/","环境；情况","under no circumstances 任何情况下都不"],["colleague","/ˈkɒliːɡ/","同事","a close colleague 亲密的同事"],["comment","/ˈkɒment/","评论","no comment 不予评论"],["community","/kəˈmjuːnəti/","社区","local community 当地社区"],["compete","/kəmˈpiːt/","竞争","compete for 为…竞争"],["complain","/kəmˈpleɪn/","抱怨","complain about 抱怨…"],["concentrate","/ˈkɒnsntreɪt/","集中","concentrate on 专注于"],["confidence","/ˈkɒnfɪdəns/","信心","lose confidence 失去信心"],["consequence","/ˈkɒnsɪkwəns/","后果","as a consequence 因此"],["contribute","/kənˈtrɪbjuːt/","贡献","contribute to 有助于"],["convince","/kənˈvɪns/","使信服","convince sb of 使某人相信"],["cooperate","/kəʊˈɒpəreɪt/","合作","cooperate with 与…合作"],["critical","/ˈkrɪtɪkl/","关键的；批评的","critical thinking 批判性思维"],["demand","/dɪˈmɑːnd/","要求；需求","in demand 有需求的"],["demonstrate","/ˈdemənstreɪt/","证明；演示","demonstrate ability 展示能力"],["distribute","/dɪˈstrɪbjuːt/","分配；分发","distribute leaflets 分发传单"],["eliminate","/ɪˈlɪmɪneɪt/","消除","eliminate poverty 消除贫困"],["encounter","/ɪnˈkaʊntər/","遭遇","encounter difficulties 遇到困难"],["enhance","/ɪnˈhɑːns/","提高","enhance quality 提高质量"],["essential","/ɪˈsenʃl/","必要的","essential skills 必备技能"],["establish","/ɪˈstæblɪʃ/","建立","establish a company 创办公司"],["estimate","/ˈestɪmeɪt/","估计","rough estimate 粗略估计"],["exaggerate","/ɪɡˈzædʒəreɪt/","夸大","exaggerate the risk 夸大风险"],["exhausted","/ɪɡˈzɔːstɪd/","精疲力尽的","feel exhausted 感到筋疲力尽"],["expand","/ɪkˈspænd/","扩大","expand the market 扩大市场"],["exposure","/ɪkˈspəʊʒər/","暴露；接触","exposure to English 接触英语"],["flexible","/ˈfleksəbl/","灵活的","flexible hours 弹性时间"],["guarantee","/ˌɡærənˈtiː/","保证","guarantee success 保证成功"],["hesitate","/ˈhezɪteɪt/","犹豫","hesitate to do 犹豫做…"],["identical","/aɪˈdentɪkl/","完全相同的","identical twins 同卵双胞胎"],["immigrant","/ˈɪmɪɡrənt/","移民","an immigrant family 移民家庭"],["implication","/ˌɪmplɪˈkeɪʃn/","含义；影响","policy implications 政策影响"],["individual","/ˌɪndɪˈvɪdʒuəl/","个人","individual needs 个人需求"],["influence","/ˈɪnfluəns/","影响","a bad influence 坏影响"],["innovative","/ˈɪnəveɪtɪv/","创新的","innovative ideas 创新想法"],["interfere","/ˌɪntəˈfɪər/","干涉；妨碍","interfere with 妨碍…"],["interpret","/ɪnˈtɜːprɪt/","解读；口译","interpret the data 解读数据"],["invest","/ɪnˈvest/","投资","invest in education 投资教育"],["justify","/ˈdʒʌstɪfaɪ/","证明…有理","justify the cost 证明花费合理"],["maintain","/meɪnˈteɪn/","维持","maintain balance 保持平衡"],["negotiate","/nɪˈɡəʊʃieɪt/","谈判","negotiate a deal 谈成交易"],["obtain","/əbˈteɪn/","获得","obtain permission 获得许可"],["opportunity","/ˌɒpəˈtjuːnəti/","机会","seize the opportunity 抓住机会"],["participate","/pɑːˈtɪsɪpeɪt/","参与","participate in 参加"],["potential","/pəˈtenʃl/","潜力；潜在的","full potential 全部潜力"],["previous","/ˈpriːviəs/","先前的","previous experience 以往经验"],["principle","/ˈprɪnsəpl/","原则","basic principle 基本原则"],["priority","/praɪˈɒrəti/","优先事项","top priority 头等大事"],["promote","/prəˈməʊt/","促进；晋升","promote health 促进健康"],["purchase","/ˈpɜːtʃəs/","购买","purchase online 网购"],["recommend","/ˌrekəˈmend/","推荐","recommend a book 推荐一本书"],["relevant","/ˈreləvənt/","相关的","relevant experience 相关经验"],["reluctant","/rɪˈlʌktənt/","不情愿的","reluctant to leave 不愿离开"],["require","/rɪˈkwaɪər/","要求","require effort 需要努力"],["resist","/rɪˈzɪst/","抵抗","resist temptation 抵制诱惑"],["restrict","/rɪˈstrɪkt/","限制","restrict access 限制访问"],["reveal","/rɪˈviːl/","揭示","reveal the truth 揭示真相"],["sacrifice","/ˈsækrɪfaɪs/","牺牲","sacrifice time 牺牲时间"],["sufficient","/səˈfɪʃnt/","充足的","sufficient funds 充足的资金"],["survive","/səˈvaɪv/","幸存","survive the winter 挨过冬天"],["tendency","/ˈtendənsi/","趋势","a tendency to 有…的倾向"],["threshold","/ˈθreʃhəʊld/","门槛","poverty threshold 贫困线"],["transform","/trænsˈfɔːm/","转变","transform lives 改变生活"],["typical","/ˈtɪpɪkl/","典型的","typical example 典型例子"],["unique","/juˈniːk/","独特的","unique style 独特风格"],["volunteer","/ˌvɒlənˈtɪər/","志愿者","work as a volunteer 做志愿者"]];
+const SENT4=[{en:"Could you tell me how to get to the library?",zh:"您能告诉我去图书馆怎么走吗？"},{en:"I'd like to make an appointment for next Monday.",zh:"我想预约下周一来。"},{en:"The meeting has been put off until further notice.",zh:"会议已推迟，另行通知。"},{en:"She is used to getting up early to review her notes.",zh:"她习惯早起复习笔记。"},{en:"It's said that the company will expand its overseas market.",zh:"据说这家公司将扩大海外市场。"},{en:"Hardly had he arrived when the lecture began.",zh:"他一到，讲座就开始了。"},{en:"You are supposed to hand in your paper before Friday.",zh:"你应该在周五之前交论文。"},{en:"More and more people prefer to shop online rather than in stores.",zh:"越来越多的人宁愿网购也不去实体店。"},{en:"The new policy aims to reduce traffic jams in big cities.",zh:"新政策旨在缓解大城市的交通拥堵。"},{en:"Don't hesitate to contact me if you have any questions.",zh:"有问题请随时联系我。"},{en:"The experiment proved that regular exercise improves memory.",zh:"实验证明规律运动能改善记忆。"},{en:"Prices vary from store to store, so compare before you buy.",zh:"各店价格不一，购买前先比价。"}];
+const CLOZE4=[{s:"She was so tired that she could hardly keep her eyes ___.",opts:["open","opened","opening","to open"],a:0,tip:"keep sth + 形容词表状态：keep her eyes open 睁着眼睛。"},{s:"The manager suggested that the meeting ___ until next week.",opts:["is postponed","be postponed","will postpone","postponed"],a:1,tip:"suggest 后虚拟语气：should + 动词原形，should 可省略 → be postponed。"},{s:"___ more attention, the flowers could have grown better.",opts:["Give","Given","Giving","To give"],a:1,tip:"过去分词表被动条件：Given more attention（=If they had been given）。"},{s:"Neither the students nor the teacher ___ aware of the change.",opts:["were","are","was","have been"],a:2,tip:"neither…nor 就近原则，靠近的是 the teacher（单数）→ was。"},{s:"It was not until midnight ___ he finished the report.",opts:["when","that","which","since"],a:1,tip:"强调句 It was not until…that… 直到午夜他才完成报告。"},{s:"The number of visitors ___ greatly since the ticket price dropped.",opts:["increased","has increased","have increased","is increasing"],a:1,tip:"The number of + 名词是单数；since 搭配现在完成时 → has increased。"},{s:"He spoke in such a low voice that few could hear him ___ .",opts:["clear","clearly","clearer","clarity"],a:1,tip:"修饰动词 hear 用副词 clearly。"},{s:"___ from the top of the hill, the city looks like a garden.",opts:["Seeing","Seen","To see","See"],a:1,tip:"城市是「被看」，用过去分词 Seen 作状语。"},{s:"I would rather you ___ the problem with me now.",opts:["discuss","discussed","will discuss","discussing"],a:1,tip:"would rather sb did sth 用过去式表现在/将来的意愿。"},{s:"The scientist devoted his whole life ___ the research.",opts:["for","to","on","with"],a:1,tip:"devote…to 固定搭配，to 是介词，后接名词/动名词。"}];
+const TRANS4=[{zh:"越来越多的人意识到保护环境的重要性。",en:"More and more people have realized the importance of protecting the environment."},{zh:"学习外语最好的方法是尽可能多地使用它。",en:"The best way to learn a foreign language is to use it as often as possible."},{zh:"正因为交通方便，这个社区才这么受欢迎。",en:"It is because of the convenient transportation that this community is so popular."},{zh:"无论遇到什么困难，我们都不应该放弃。",en:"Whatever difficulties we meet, we should never give up."},{zh:"据调查，一半以上的大学生有兼职经历。",en:"According to the survey, more than half of the college students have part-time job experience."},{zh:"只有坚持不懈，我们才能实现自己的目标。",en:"Only by persevering can we achieve our goals."},{zh:"随着科技的发展，人们的生活方式发生了巨大变化。",en:"With the development of technology, great changes have taken place in people's lifestyles."},{zh:"这本书值得一读，因为它不仅有趣而且有教育意义。",en:"This book is worth reading, for it is not only interesting but also educational."}];
 
 /* ============ 存储 ============ */
 const KEY="seoul-cet6-hub-v1";
 const ACC="seoul-cet6-accounts-v1";
 let S=null, SESSION=null;
 function todayStr(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
-function freshStore(name){const id="u"+Date.now();const s={activeId:id,profiles:{},checked:{}};s.profiles[id]={name:name||"我",ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};return s;}
+function freshStore(name){const id="u"+Date.now();const s={activeId:id,profiles:{},checked:{}};s.profiles[id]={name:name||"我",ptsKR:0,ptsEN:0,ptsC4:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};return s;}
 function loadAcc(){try{return JSON.parse(localStorage.getItem(ACC))||{users:{},session:null};}catch(e){return{users:{},session:null};}}
 function saveAcc(a){try{localStorage.setItem(ACC,JSON.stringify(a));}catch(e){}}
 function storeKey(u){return KEY+"::"+u;}
@@ -408,7 +463,7 @@ $("gate-go").onclick=async()=>{const name=$("gate-user").value.trim(),pw=$("gate
 [$("gate-user"),$("gate-pw")].forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Enter")$("gate-go").click();}));
 $("btn-logout").onclick=()=>{save();const a=loadAcc();a.session=null;saveAcc(a);SESSION=null;document.body.classList.remove("in");$("gate-pw").value="";setGateMode("login");toast("已退出登录");};
 function me(){return S.profiles[S.activeId];}
-function total(p){return (p.ptsKR||0)+(p.ptsEN||0);}
+function total(p){return (p.ptsKR||0)+(p.ptsEN||0)+(p.ptsC4||0);}
 function levelOf(t){const lv=Math.min(10,Math.floor(t/200)+1);return{lv,need:lv*200,next:lv*200-t};}
 load();
 
@@ -421,7 +476,7 @@ window.addEventListener("beforeunload",()=>{const m=me();const add=Math.floor((D
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2200);}
 function speak(text,lang){try{if(!("speechSynthesis" in window)){toast("当前浏览器不支持发音，用拼音跟读即可");return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.85;const vs=speechSynthesis.getVoices();const v=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang.slice(0,2)));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){toast("发音调用失败");}}
 function addPts(track,n,qGood,qAll){const m=me();const t=todayStr();m.hist[t]=m.hist[t]||{sec:0,q:0,c:0,pts:0};
-  if(track==="kr")m.ptsKR+=n;else m.ptsEN+=n;
+  if(track==="kr")m.ptsKR+=n;else if(track==="c4")m.ptsC4=(m.ptsC4||0)+n;else m.ptsEN+=n;
   m.hist[t].pts+=n;if(qAll){m.hist[t].q+=qAll;m.q+=qAll;}if(qGood){m.hist[t].c+=qGood;m.correct+=qGood;}
   const before=levelOf(total(m)-n).lv,after=levelOf(total(m)).lv;save();renderAll();
   if(after>before){celebrate();toast("🎉 升级到 Lv."+after+"！继续冲榜！");}}
@@ -444,12 +499,12 @@ function renderHome(){const m=me();const t=total(m);$("h-points").textContent=t;
   const lv=levelOf(t);$("k-level").textContent="Lv."+lv.lv;$("k-level-sub").textContent=lv.lv>=10?"已满级，大佬！":"再得 "+lv.next+" 分升级";
   const goal=Math.min(60,Math.floor((h.sec||0)/60)+Math.min(30,(h.pts||0)/2));const pct=Math.min(100,Math.round(goal/60*100));
   $("goal-bar").style.width=pct+"%";$("goal-txt").textContent=pct+"%（每天60分：学习+积分）";
-  $("profile-name").textContent=m.name;$("kr-pts-tag").textContent="韩语积分 "+m.ptsKR;$("en-pts-tag").textContent="英语积分 "+m.ptsEN;$("rank-me").textContent=t;
+  $("profile-name").textContent=m.name;$("kr-pts-tag").textContent="韩语积分 "+m.ptsKR;$("en-pts-tag").textContent="英语积分 "+m.ptsEN;$("c4-pts-tag").textContent="四级积分 "+(m.ptsC4||0);$("rank-me").textContent=t;
   const seed=new Date().getDate()+new Date().getMonth()*31;$("daily-line").textContent=DAILY[seed%DAILY.length];
   $("hello").textContent=(new Date().getHours()<12?"上午好":"你好")+"，" + m.name + "，今天也一起加油 👋";
   drawBars($("mini-bars"),7);}
 $("btn-checkin").addEventListener("click",()=>{const t=todayStr();if(S.checked[t]){toast("今天已打卡，明天再来 🔥");return;}S.checked[t]=1;save();addPts("kr",10);addPts("en",10);toast("📅 打卡成功 +20，连续打卡别断！");});
-$("btn-profile").addEventListener("click",()=>{const ids=Object.keys(S.profiles);if(ids.length<2){const n=prompt("新建档案：输入名字（比如：朋友小王，可当面PK）","朋友");if(n){const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;save();renderAll();toast("已切换到 "+n);}}else{const m=me();const list=ids.map(id=>S.profiles[id].name+"("+(id===S.activeId?"当前":"切")+")").join(" / ");const n=prompt("输入要切换/新建的档案名。现有："+list,m.name);if(!n)return;const found=ids.find(id=>S.profiles[id].name===n);if(found){S.activeId=found;}else{const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;}save();renderAll();}});
+$("btn-profile").addEventListener("click",()=>{const ids=Object.keys(S.profiles);if(ids.length<2){const n=prompt("新建档案：输入名字（比如：朋友小王，可当面PK）","朋友");if(n){const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,ptsC4:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;save();renderAll();toast("已切换到 "+n);}}else{const m=me();const list=ids.map(id=>S.profiles[id].name+"("+(id===S.activeId?"当前":"切")+")").join(" / ");const n=prompt("输入要切换/新建的档案名。现有："+list,m.name);if(!n)return;const found=ids.find(id=>S.profiles[id].name===n);if(found){S.activeId=found;}else{const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,ptsC4:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};S.activeId=id;}save();renderAll();}});
 
 /* ============ 韩语 ============ */
 function renderPhon(){const mk=(arr,el,lang)=>{$(el).innerHTML="";arr.forEach(([k,py,zh])=>{const d=document.createElement("div");d.className="phon";d.innerHTML="<b>"+k+"</b><span>"+py+" · "+zh+"</span>";d.onclick=()=>speak(k,lang);$(el).appendChild(d);});};
@@ -522,6 +577,76 @@ function renderTemplates(){const box=$("templates");box.innerHTML="";TEMPLATES.f
   const b=document.createElement("button");b.className="btn small";b.textContent="📋 复制模板";b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(t.c);toast("已复制，去默写一遍吧！");addPts("en",3);};
   d.appendChild(b);box.appendChild(d);});}
 
+/* ============ 四级 CET-4 ============ */
+let c4wi=0;
+function renderWord4(){const w=WORDS4[c4wi%WORDS4.length];$("c4-w-en").textContent=w[0];$("c4-w-ph").textContent=w[1];$("c4-w-zh").textContent=w[2];$("c4-w-ex").textContent=w[3];$("c4-wordcard").classList.remove("flip");}
+$("c4-wordcard").addEventListener("click",()=>$("c4-wordcard").classList.toggle("flip"));
+$("c4-btn-next").addEventListener("click",()=>{const m=me();m.known4=m.known4||{};let next=c4wi+1;for(let k=0;k<WORDS4.length;k++){if(!m.known4[WORDS4[(c4wi+1+k)%WORDS4.length][0]]){next=c4wi+1+k;break;}}c4wi=next;renderWord4();});
+$("c4-btn-known").addEventListener("click",()=>{const m=me();m.known4=m.known4||{};const w=WORDS4[c4wi%WORDS4.length];if(!m.known4[w[0]]){m.known4[w[0]]=1;save();}addPts("c4",5);c4wi++;renderWord4();});
+/* 听音辨义（单词 / 句子两种） */
+function c4ListenQuiz(btnId,boxId,source,pointLabel){
+  $(btnId).addEventListener("click",()=>{const box=$(boxId);const qs=shuffle(source).slice(0,10);let idx=0,good=0,c4Streak=0;
+    function ask(){if(idx>=qs.length){addPts("c4",good*10+(good>=8?20:0),good,qs.length);box.innerHTML='<div class="phrase">🎉 '+pointLabel+'听力 '+good+'/10 已入账'+(good>=8?"（+20 优秀奖励）":"")+'。<br><button class="btn small navy" id="'+boxId+'-again">再来一组</button></div>';$(boxId+"-again").onclick=()=>$(btnId).click();return;}
+      const q=qs[idx];
+      let pool,title,answer;
+      if(Array.isArray(source[0])){title="听发音，选出意思";answer=q[2];pool=shuffle(WORDS4.filter(w=>w!==q)).slice(0,3).map(w=>w[2]);}
+      else{title="听句子，选出中文意思";answer=q.zh;pool=shuffle(SENT4.filter(s=>s!==q)).slice(0,3).map(s=>s.zh);}
+      box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/10 · '+title+'</div><div style="margin-bottom:8px"><button class="btn small rose" id="'+boxId+'-hear">🔊 播放</button> <button class="btn small ghost" id="'+boxId+'-hear2">🔊 再听一遍</button></div><div class="quiz-opts"></div>';
+      const speakIt=()=>speak(Array.isArray(source[0])?q[0]:q.en,"en-US");
+      $(boxId+"-hear").onclick=speakIt;$(boxId+"-hear2").onclick=speakIt;speakIt();
+      const wrap=box.querySelector(".quiz-opts");
+      shuffle([answer].concat(pool)).forEach(o=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{const ok=o===answer;
+        wrap.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===answer)x.classList.add("correct");});
+        if(!ok)b.classList.add("wrong");else{good++;c4Streak++;if(c4Streak>=3)toast("🔥 连对 x"+c4Streak+"！耳朵越来越灵！");}
+        if(!ok)c4Streak=0;
+        setTimeout(()=>{idx++;ask();},900);};wrap.appendChild(b);});}
+    ask();box.scrollIntoView({behavior:"smooth",block:"center"});});}
+c4ListenQuiz("c4-btn-listen","c4-quiz-a",WORDS4,"单词");
+c4ListenQuiz("c4-btn-listen2","c4-quiz-b",WORDS4,"单词");
+c4ListenQuiz("c4-btn-listen3","c4-quiz-b",SENT4,"句子");
+/* 选词填空 */
+$("c4-btn-cloze").addEventListener("click",()=>{const box=$("c4-quiz-c");const qs=shuffle(CLOZE4).slice(0,10);let idx=0,good=0;
+  function ask(){if(idx>=qs.length){addPts("c4",good*10+(good>=8?20:0),good,qs.length);box.innerHTML='<div class="phrase">🎉 选词填空 '+good+'/10 已入账'+(good>=8?"（+20 优秀奖励）":"")+'。<br><button class="btn small navy" id="c4-cloze-again">再来一组</button></div>';$("c4-cloze-again").onclick=()=>$("c4-btn-cloze").click();return;}
+    const q=qs[idx];
+    box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/10 · 选词填空</div><div class="phrase" style="font-size:16px;line-height:1.8">'+q.s.replace("___","<b style='color:var(--rose-deep)'>______</b>")+'</div><div class="quiz-opts"></div><div id="c4-cloze-tip" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>';
+    const wrap=box.querySelector(".quiz-opts");
+    q.opts.forEach(o=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{const ok=o===q.opts[q.a];
+      wrap.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===q.opts[q.a])x.classList.add("correct");});
+      if(!ok){b.classList.add("wrong");$("c4-cloze-tip").innerHTML="📖 "+q.tip;}
+      else{good++;$("c4-cloze-tip").innerHTML="✅ "+q.tip;}
+      setTimeout(()=>{idx++;ask();},1300);};wrap.appendChild(b);});}
+  ask();box.scrollIntoView({behavior:"smooth",block:"center"});});
+/* 汉译英 */
+function normEn(s){return (s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();}
+$("c4-btn-trans").addEventListener("click",()=>{const box=$("c4-quiz-d");const qs=shuffle(TRANS4).slice(0,5);let idx=0,good=0;
+  function ask(){if(idx>=qs.length){addPts("c4",good*20,good,qs.length);box.innerHTML='<div class="phrase">🎉 翻译练习完成，完全答对 '+good+'/5 已入账（每题+20）。<br><button class="btn small navy" id="c4-trans-again">再来一组</button></div>';$("c4-trans-again").onclick=()=>$("c4-btn-trans").click();return;}
+    const q=qs[idx];
+    box.innerHTML='<div class="quiz-q">第 '+(idx+1)+'/5 · 汉译英</div><div class="phrase" style="font-size:16px">'+q.zh+'</div><input type="text" id="c4-trans-in" placeholder="在这里打出整句英文…" autocomplete="off"><div class="row" style="margin-top:8px"><button class="btn small navy" id="c4-trans-ok">提交</button></div><div id="c4-trans-fb" style="margin-top:10px;font-size:14px;line-height:1.7"></div>';
+    $("c4-trans-in").focus();
+    const sub=()=>{const v=normEn($("c4-trans-in").value);const ok=v===normEn(q.en);
+      if(ok){good++;addPts("c4",20,1,1);$("c4-trans-fb").innerHTML="✅ 完全正确！<br>参考表达：<b>"+q.en+"</b>";}
+      else{const hit=normEn(q.en).split(" ").filter(w=>v&&v.split(" ").includes(w)).length;const need=Math.ceil(normEn(q.en).split(" ").length*.6);
+        if(v&&hit>=need){addPts("c4",10,0,1);$("c4-trans-fb").innerHTML="👍 很接近了！关键词都对，注意句型完整。<br>参考表达：<b>"+q.en+"</b>";}
+        else{$("c4-trans-fb").innerHTML="❌ 对照参考答案再练一遍：<br>参考表达：<b>"+q.en+"</b>";}}
+      $("c4-trans-ok").disabled=true;$("c4-trans-in").disabled=true;
+      setTimeout(()=>{idx++;ask();},ok?1200:2600);};
+    $("c4-trans-ok").onclick=sub;$("c4-trans-in").onkeydown=e=>{if(e.key==="Enter")sub();};}
+  ask();box.scrollIntoView({behavior:"smooth",block:"center"});});
+/* 词义速配小游戏 */
+$("c4-btn-match").addEventListener("click",()=>{const box=$("c4-match");const picks=shuffle(WORDS4).slice(0,5);
+  const left=shuffle(picks),right=shuffle(picks);let sel=null,done=0,t0=Date.now();
+  box.innerHTML='<div class="row" style="gap:16px"><div style="flex:1;min-width:130px" id="c4-m-l"></div><div style="flex:1;min-width:130px" id="c4-m-r"></div></div><div id="c4-m-time" style="margin-top:8px;font-size:13px;color:var(--muted)">⏱ 0.0 秒</div>';
+  const timer=setInterval(()=>{const el=$("c4-m-time");if(el)el.textContent="⏱ "+((Date.now()-t0)/1000).toFixed(1)+" 秒";else clearInterval(timer);},100);
+  const mk=(arr,root,side)=>{arr.forEach(w=>{const b=document.createElement("button");b.className="btn small";b.style.margin="3px 0";b.style.width="100%";b.textContent=side==="l"?w[0]:w[2];
+    b.onclick=()=>{if(b.disabled)return;if(side==="l"){box.querySelectorAll("#c4-m-l .btn").forEach(x=>{if(!x.disabled)x.style.borderColor="";});b.style.borderColor="var(--rose-deep)";sel=w;}
+      else{if(!sel){toast("先点左边的单词");return;}
+        if(sel===w){b.disabled=true;b.style.background="#d9f5e6";b.style.borderColor="var(--ok)";box.querySelectorAll("#c4-m-l .btn").forEach(x=>{if(x.textContent===w[0]){x.disabled=true;x.style.background="#d9f5e6";x.style.borderColor="var(--ok)";}});done++;addPts("c4",2);
+          if(done===5){const sec=parseFloat(((Date.now()-t0)/1000).toFixed(1));addPts("c4",10,5,5);const best=Math.min(parseFloat(localStorage.getItem("c4-match-best")||"999"),sec);localStorage.setItem("c4-match-best",best);$("c4-match-best").textContent="最快纪录："+best+" 秒";toast("🎉 速配完成 "+sec+" 秒，+20 分！");}
+          sel=null;}
+        else{b.style.background="#fde0e0";b.style.borderColor="var(--bad)";sel=null;setTimeout(()=>{b.style.background="";b.style.borderColor="";},400);}}};
+    $(root).appendChild(b);});};
+  mk(left,"c4-m-l","l");mk(right,"c4-m-r","r");});
+
 /* ============ 记录 ============ */
 function last7(){const out=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);out.push(todayStr(d));}return out;}
 function drawBars(el,n){const m=me();const days=last7().slice(7-n);const max=Math.max(10,...days.map(d=>(m.hist[d]||{pts:0}).pts));el.innerHTML="";
@@ -538,10 +663,10 @@ $("btn-reset").addEventListener("click",()=>{if(confirm("清空本机所有学�
 
 /* ============ 排行 ============ */
 function botScore(b){const t=todayStr();let n=0;for(const ch of t)n+=ch.charCodeAt(0);const dayIdx=Math.floor(n/3)+new Date().getDate();return b.base+dayIdx*b.grow%400+((n+b.base)%37);}
-$("btn-add-profile").addEventListener("click",()=>{const n=prompt("新档案名字（朋友/家人，可同设备PK）","朋友");if(!n)return;const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};save();renderAll();toast("欢迎 "+n+" 加入PK！");});
-function renderRank(){const rows=Object.entries(S.profiles).map(([id,p])=>({id,name:p.name,t:total(p),kr:p.ptsKR,en:p.ptsEN,me:id===S.activeId})).sort((a,b)=>b.t-a.t);
-  const medals=["🥇","🥈","🥉"];let html="<tr><th>#</th><th>名字</th><th>韩语</th><th>英语</th><th>总分</th></tr>";
-  rows.forEach((r,i)=>{html+="<tr class='"+(r.me?"me":"")+"'><td class='medal'>"+(medals[i]||(i+1))+"</td><td>"+r.name+(r.me?"（我）":"")+"</td><td>"+r.kr+"</td><td>"+r.en+"</td><td>"+r.t+"</td></tr>";});
+$("btn-add-profile").addEventListener("click",()=>{const n=prompt("新档案名字（朋友/家人，可同设备PK）","朋友");if(!n)return;const id="u"+Date.now();S.profiles[id]={name:n.slice(0,8),ptsKR:0,ptsEN:0,ptsC4:0,hist:{},known:{},seconds:0,q:0,correct:0,created:todayStr()};save();renderAll();toast("欢迎 "+n+" 加入PK！");});
+function renderRank(){const rows=Object.entries(S.profiles).map(([id,p])=>({id,name:p.name,t:total(p),kr:p.ptsKR,en:p.ptsEN,c4:p.ptsC4||0,me:id===S.activeId})).sort((a,b)=>b.t-a.t);
+  const medals=["🥇","🥈","🥉"];let html="<tr><th>#</th><th>名字</th><th>韩语</th><th>六级</th><th>四级</th><th>总分</th></tr>";
+  rows.forEach((r,i)=>{html+="<tr class='"+(r.me?"me":"")+"'><td class='medal'>"+(medals[i]||(i+1))+"</td><td>"+r.name+(r.me?"（我）":"")+"</td><td>"+r.kr+"</td><td>"+r.en+"</td><td>"+r.c4+"</td><td>"+r.t+"</td></tr>";});
   $("local-rank").innerHTML=html;
   const all=rows.map(r=>({name:r.name+(r.me?"（我）":""),t:r.t})).concat(BOTS.map(b=>({name:b.name,t:botScore(b)}))).sort((a,b)=>b.t-a.t);
   let h2="<tr><th>#</th><th>选手</th><th>总分</th></tr>";all.slice(0,10).forEach((r,i)=>{h2+="<tr class='"+(r.name.includes("（我）")?"me":"")+"'><td class='medal'>"+(medals[i]||(i+1))+"</td><td>"+r.name+"</td><td>"+r.t+"</td></tr>";});
@@ -554,7 +679,7 @@ $("btn-cloud").addEventListener("click",async()=>{const url=$("cloud-url").value
 /* 云榜提交预留：后端准备好后直接调用 */
 // async function submitScore(){await fetch(window.RANK_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:me().name,kr:me().ptsKR,en:me().ptsEN,total:total(me())})});}
 
-function renderAll(){renderHome();renderKRList();renderWord();renderReading();renderTemplates();renderLog();renderRank();}
+function renderAll(){renderHome();renderKRList();renderWord();renderWord4();renderReading();renderTemplates();renderLog();renderRank();}
 renderPhon();if(loadAcc().session){enterApp();}
 if("speechSynthesis" in window){speechSynthesis.getVoices();}
 </script>
